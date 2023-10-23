@@ -1,12 +1,25 @@
-var arr, pal, word, arr1 = [];
+var arr, word, arr1 = [];
 
-pal = prompt("Escribe:");
+word = prompt("Escribe:");
 
-arr = pal.split(" ");
+arr = word.split(" ");
 
 for(let i = 0; i< arr.length; i++){
-
     arr1[i] = arr[i].split(``).reverse().join("");
 }
 
 //pasar array a string y compararlo//
+
+arr1.reverse();
+var pal2 = arr1.join("");
+var pal = arr.join("");
+
+/*pal2 = pal2.toLocaleLowerCase;
+pal = pal.toLocaleLowerCase;
+
+
+if(pal === pal2){
+    alert("Son palindromos");
+}else{
+    alert("No son palindromos");
+}*/
