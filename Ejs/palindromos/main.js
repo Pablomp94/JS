@@ -1,30 +1,12 @@
-var arr;
-var pal;
-var i, x;
-var word;
-var arr2;
+var arr, pal, word, arr1 = [];
 
-arr = prompt("Pon el texto a verificar si es palindromo o no");
+pal = prompt("Escribe:");
 
-arr = arr.split(" ");
+arr = pal.split(" ");
 
-console.log(arr);
+for(let i = 0; i< arr.length; i++){
 
-//Quiero un bucle que coja la ultima posicion del array y lo invierta, poniendolo en la posicion numero 0 del array pal//
-
-for(i=(arr.length - 1); i<= 0; i--){
-    
-    word = arr[i];
-
-    console.log(word);
-
-    word = word.split(``).reverse();
-
-    x = 0;
-
-    pal[x] = word;
-    
-    x ++;
+    arr1[i] = arr[i].split(``).reverse().join("");
 }
 
-console.log(pal);
+//pasar array a string y compararlo//
