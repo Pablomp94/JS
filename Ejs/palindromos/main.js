@@ -14,12 +14,8 @@ arr1.reverse();
 var pal2 = arr1.join("");
 var pal = arr.join("");
 
-/*pal2 = pal2.toLocaleLowerCase;
-pal = pal.toLocaleLowerCase;
-
-
 if(pal === pal2){
     alert("Son palindromos");
 }else{
     alert("No son palindromos");
-}*/
+}
