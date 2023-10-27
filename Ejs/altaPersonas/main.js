@@ -10,7 +10,7 @@ arr.push(david);
 
 do {
   opc = prompt(
-    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Actualizar 4.Ordenar 5.Ver"
+    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Buscar 4.Ordenar 5.Listar"
   );
 
   if (opc == 1) {
@@ -47,19 +47,16 @@ function crearPersona() {
   arr.push(princ);
 }
 
-function eliminarPersona() {
-  //Hacer un bucle que muestre los datos del array//
-  for(let i = 0; i < arr.length; i++){
-    document.write(i," ")
-    document.write(arr[i].name," ");
-    document.write(arr[i].edad," ");
-    document.write(arr[i].nac,"<br>"); 
-  }
+function eliminarPersona(){
+  //Decir que para que se elimine una persona se tiene que ver la lista para saber la posición de dicha persona para eliminarla//
+
   //Preguntar por la persona a eliminar y eliminar con el delete arr[]//
 }
 
 function ordenar(){
-  let f = prompt("Ordenarlo por: 1.Ascendente 2.Descendente 3.Invertir array");
+  let f = prompt("Ordenarlo por: 1.Ascendente 2.Descendente 3.Invertir Listado");
+
+  //Ver como se ordena//
 
   if(f == 1){
     arr.sort(function(a, b){return a - b});
@@ -75,10 +72,17 @@ function ordenar(){
 }
 
 function verPersonas(){
+  document.write("---------------------------------------<br>" );
   for(let i = 0; i < arr.length; i++){
-    document.write(i," ")
+    document.write(i," ");
     document.write(arr[i].name," ");
     document.write(arr[i].edad," ");
     document.write(arr[i].nac,"<br>"); 
   }
+  document.write("---------------------------------------<br>" );
+
+  /*Intentar que al mostrar la lista que se quede para siempre 
+  y si es posible que cuando se vuelva a escribir que se sobreescriba*/
 }
+
+
