@@ -1,5 +1,5 @@
 var arr, word, arr1 = [];
-const exp = /[a-Z]+ [0-9]+ /;
+
 
 
 word = prompt("Escribe:");
