@@ -10,7 +10,7 @@ arr.push(david);
 
 do {
   opc = prompt(
-    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Buscar 4.Ordenar 5.Listar"
+    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Buscar por Nombre 4.Ordenar 5.Listar 0.Salir"
   );
 
   if (opc == 1) {
@@ -21,8 +21,11 @@ do {
     eliminarPersona();
   }
 
+  if (opc == 3) {
+    buscarNombre();
+  }
 
-  if(opc == 4){
+  if (opc == 4) {
     ordenar();
   }
 
@@ -32,9 +35,7 @@ do {
 } while (opc != 0);
 
 function Persona(name, edad, nac) {
-  (this.name = name),
-  (this.edad = edad),
-  (this.nac = nac);
+  (this.name = name), (this.edad = edad), (this.nac = nac);
 }
 
 function crearPersona() {
@@ -42,47 +43,71 @@ function crearPersona() {
   var edad = prompt("Introduce la edad de la persona a añadir");
   var nac = prompt("Introduce la fecha de nacimiento de la persona a añadir");
 
-  var princ = new Persona(name,edad, nac);
+  var princ = new Persona(name, edad, nac);
 
   arr.push(princ);
 }
 
-function eliminarPersona(){
+function eliminarPersona() {
   //Decir que para que se elimine una persona se tiene que ver la lista para saber la posición de dicha persona para eliminarla//
-
+  var num = prompt(
+    "Para eliminar debe de visualizar la lista y obtener el id de la persona"
+  );
   //Preguntar por la persona a eliminar y eliminar con el delete arr[]//
+    num = prompt("Introduce el id de la persona a eliminar:");
+
+    arr.splice(num, 1);
 }
 
-function ordenar(){
-  let f = prompt("Ordenarlo por: 1.Ascendente 2.Descendente 3.Invertir Listado");
+function ordenar() {
+  let f = prompt(
+    "Ordenarlo por: 1.Ascendente 2.Descendente 3.Invertir Listado"
+  );
 
   //Ver como se ordena//
 
-  if(f == 1){
-    arr.sort(function(a, b){return a - b});
+  if (f == 1) {
+    arr.sort(function (a, b) {
+      return a - b;
+    });
   }
 
-  if(f == 2){
-    arr.sort(function(a, b){return b - a});
+  if (f == 2) {
+    arr.sort(function (a, b) {
+      return b - a;
+    });
   }
 
-  if(f == 3){
+  if (f == 3) {
     arr.reverse();
   }
 }
 
-function verPersonas(){
-  document.write("---------------------------------------<br>" );
-  for(let i = 0; i < arr.length; i++){
-    document.write(i," ");
-    document.write(arr[i].name," ");
-    document.write(arr[i].edad," ");
-    document.write(arr[i].nac,"<br>"); 
+function verPersonas() {
+  document.write("---------------------------------------<br>");
+  for (let i = 0; i < arr.length; i++) {
+    document.write(i, " ");
+    document.write(arr[i].name, " ");
+    document.write(arr[i].edad, " ");
+    document.write(arr[i].nac, "<br>");
   }
-  document.write("---------------------------------------<br>" );
-
-  /*Intentar que al mostrar la lista que se quede para siempre 
-  y si es posible que cuando se vuelva a escribir que se sobreescriba*/
+  document.write("---------------------------------------<br>");
 }
 
+function buscarNombre() {
+  var nom = prompt("Introduce el nombre a buscar");
 
+  var numArr;
+  var bol;
+
+  for (let i = 0; i < arr.length; i++) {
+    
+    bol = ((arr[i].name).find(nom == arr[i].name));
+
+    if(bol == true) {
+      document.write(arr[i].name, " ");
+      document.write(arr[i].edad, " ");
+      document.write(arr[i].nac, "<br>");
+    } 
+  }
+}
