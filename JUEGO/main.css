@@ -1,9 +1,13 @@
-
+body{
+    background-image: url(fondo.png);
+}
 
 #nave{
     width:150px;
     height:160px;
-    margin: auto;
+    top: 500px;
+    left: 900px;
+    position: absolute;
 }
 
 

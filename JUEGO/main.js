@@ -1,11 +1,12 @@
 
-//let nombre = prompt("Introduce tu nombre:");
-//let cantene = prompt("Introduce la cantidad de enemigos");
 
-
-
-
-
+function juego(){
+    //let nombre = prompt("Introduce tu nombre:");
+    //let cantene = prompt("Introduce la cantidad de enemigos");
+    nave();
+    //enemigos(cantene);
+    movimientoNave();
+}
 
 function enemigos(cantene){
     for(i = 0; i < cantene; i++){
@@ -13,8 +14,7 @@ function enemigos(cantene){
         imagen.setAttribute("src", "marciano.png");
         imagen.setAttribute("id", "marciano"); 
         var main = document.querySelector("body"); 
-        main.appendChild(imagen); 
-        
+        main.appendChild(imagen);     
     }
 }
 
@@ -26,14 +26,56 @@ function nave(){
     main.appendChild(imagen); 
 }
 
-  
-  
-  
 
+function movimientoNave(x,y){
 
+    var x, y;
+    x=900;
+    y=500;
 
-
-
+    document.addEventListener("keydown", function(event){
+        if(event.key == "a") {
+            x = x-10;
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(event.key == "d") {
+            x = x+10;
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(event.key == "w") {
+            y = y-10;
+            document.getElementById("nave").style.top=y + "px";
+        }
+        if(event.key == "s") {
+            y = y+10;
+            document.getElementById("nave").style.top=y + "px";
+        }
+        if(event.key=="w" && event.key=="d"){
+            x = x+5;
+            y = y+5;
+            document.getElementById("nave").style.top=y + "px";
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(event.key=="w" && event.key=="a"){
+            x = x-5;
+            y = y+5;
+            document.getElementById("nave").style.top=y + "px";
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(event.key=="s" && event.key=="a"){
+            x = x-5;
+            y = y-5;
+            document.getElementById("nave").style.top=y + "px";
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(event.key=="s" && event.key=="d"){
+            x = x+5;
+            y = y-5;
+            document.getElementById("nave").style.top=y + "px";
+            document.getElementById("nave").style.left=x + "px";
+        }
+    })
+}
 
 function detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY){
     if( (naveX < eneX + enemigo.width) &&
