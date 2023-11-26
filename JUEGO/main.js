@@ -1,11 +1,13 @@
 
 
 function juego(){
+    nave();    
+    movimientoNave();
+    
     //let nombre = prompt("Introduce tu nombre:");
     //let cantene = prompt("Introduce la cantidad de enemigos");
-    nave();
+    
     //enemigos(cantene);
-    movimientoNave();
 }
 
 function enemigos(cantene){
@@ -27,7 +29,7 @@ function nave(){
 }
 
 
-function movimientoNave(x,y){
+function movimientoNave(){
 
     var x, y;
     x=900;
@@ -75,6 +77,32 @@ function movimientoNave(x,y){
             document.getElementById("nave").style.left=x + "px";
         }
     })
+}
+
+//PRUEBA
+function lanzarMisil(){
+    
+    var x, y;
+    x=900;
+    y=500;
+    y = y - 20;
+
+    document.addEventListener("keydown", function(event){
+        if(event.key == "a") {
+            var imagen = document.createElement("img"); 
+            imagen.setAttribute("src", "marciano.png");
+            imagen.setAttribute("id", "disparo");  
+            var main = document.querySelector("body"); 
+            main.appendChild(imagen);
+            document.getElementById("disparo").style.top=y + "px";
+            document.getElementById("disparo").style.left=x + "px";
+            
+            do{
+                document.getElementById("disparo").style.top=(y-5)+ "px";
+            }while(y >= 0);
+        }
+    })
+
 }
 
 function detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY){
