@@ -34,8 +34,13 @@ function movimientoNave(){
     var x, y;
     x=900;
     y=500;
+    let letras = new Set();
+
+    document.addEventListener("keyup",evento => letras.delete(evento.key))
 
     document.addEventListener("keydown", function(event){
+        letras.add(event.key);
+
         if(event.key == "a") {
             x = x-10;
             document.getElementById("nave").style.left=x + "px";
@@ -52,9 +57,9 @@ function movimientoNave(){
             y = y+10;
             document.getElementById("nave").style.top=y + "px";
         }
-        if(event.key=="w" && event.key=="d"){
+        if(letras.has("w") && letras.has("d")){
             x = x+5;
-            y = y+5;
+            y = y-5;
             document.getElementById("nave").style.top=y + "px";
             document.getElementById("nave").style.left=x + "px";
         }
