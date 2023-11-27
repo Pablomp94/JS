@@ -14,7 +14,7 @@ body{
 #marciano{
     width:130px;
     height:140px;
-    
+    position: absolute;
 }
 
 #disparo{
