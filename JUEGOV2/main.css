@@ -6,7 +6,7 @@ body{
     width:150px;
     height:160px;
     top: 500px;
-    left: 900px;
+    left: 650px;
     position: absolute;
 }
 
@@ -14,10 +14,15 @@ body{
 #marciano{
     width:130px;
     height:140px;
+    
 }
 
 #disparo{
     width:50px;
     height:60px;
     position: absolute;
+}
+
+h1{
+    color: white;
 }

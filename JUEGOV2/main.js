@@ -1,13 +1,14 @@
 
 
 function juego(){
+    
+   
+    let nombre = prompt("Introduce tu nombre:");
+    let cantene = prompt("Introduce la cantidad de enemigos");
+    temporizador();
+    enemigos(cantene);
     nave();    
-    movimientoNave();
-    
-    //let nombre = prompt("Introduce tu nombre:");
-    //let cantene = prompt("Introduce la cantidad de enemigos");
-    
-    //enemigos(cantene);
+
 }
 
 function enemigos(cantene){
@@ -16,7 +17,7 @@ function enemigos(cantene){
         imagen.setAttribute("src", "marciano.png");
         imagen.setAttribute("id", "marciano"); 
         var main = document.querySelector("body"); 
-        main.appendChild(imagen);     
+        main.appendChild(imagen);    
     }
 }
 
@@ -28,87 +29,59 @@ function nave(){
     main.appendChild(imagen); 
 }
 
+let teclas = new Set();
 
+document.addEventListener("keydown", (event) => 
+    teclas.add(event.key));
+document.addEventListener("keyup",evento => teclas.delete(evento.key))
+
+setInterval(movimientoNave, 20);
+var x, y;
+x=650;
+y=500;
 function movimientoNave(){
 
-    var x, y;
-    x=900;
-    y=500;
-    let letras = new Set();
+        if(teclas.has(" ")) {
 
-    document.addEventListener("keyup",evento => letras.delete(evento.key))
+            xdis = x+50;
+            ydis = y-20;
 
-    document.addEventListener("keydown", function(event){
-        letras.add(event.key);
-
-        if(event.key == "a") {
-            x = x-10;
-            document.getElementById("nave").style.left=x + "px";
-        }
-        if(event.key == "d") {
-            x = x+10;
-            document.getElementById("nave").style.left=x + "px";
-        }
-        if(event.key == "w") {
-            y = y-10;
-            document.getElementById("nave").style.top=y + "px";
-        }
-        if(event.key == "s") {
-            y = y+10;
-            document.getElementById("nave").style.top=y + "px";
-        }
-        if(letras.has("w") && letras.has("d")){
-            x = x+5;
-            y = y-5;
-            document.getElementById("nave").style.top=y + "px";
-            document.getElementById("nave").style.left=x + "px";
-        }
-        if(event.key=="w" && event.key=="a"){
-            x = x-5;
-            y = y+5;
-            document.getElementById("nave").style.top=y + "px";
-            document.getElementById("nave").style.left=x + "px";
-        }
-        if(event.key=="s" && event.key=="a"){
-            x = x-5;
-            y = y-5;
-            document.getElementById("nave").style.top=y + "px";
-            document.getElementById("nave").style.left=x + "px";
-        }
-        if(event.key=="s" && event.key=="d"){
-            x = x+5;
-            y = y-5;
-            document.getElementById("nave").style.top=y + "px";
-            document.getElementById("nave").style.left=x + "px";
-        }
-    })
-}
-
-//PRUEBA
-function lanzarMisil(){
-    
-    var x, y;
-    x=900;
-    y=500;
-    y = y - 20;
-
-    document.addEventListener("keydown", function(event){
-        if(event.key == "a") {
             var imagen = document.createElement("img"); 
             imagen.setAttribute("src", "marciano.png");
             imagen.setAttribute("id", "disparo");  
             var main = document.querySelector("body"); 
             main.appendChild(imagen);
-            document.getElementById("disparo").style.top=y + "px";
-            document.getElementById("disparo").style.left=x + "px";
+            document.getElementById("disparo").style.top=ydis + "px";
+            document.getElementById("disparo").style.left=xdis + "px";
             
-            do{
-                document.getElementById("disparo").style.top=(y-5)+ "px";
-            }while(y >= 0);
-        }
-    })
 
-}
+
+            function movimientoMisil(){
+                document.getElementById("disparo").style.top=(ydis = ydis-5)+ "px";
+            }
+            setInterval(movimientoMisil, 20);
+        }
+
+
+        if(teclas.has("a")) {
+            x = x-15;
+            document.getElementById("nave").style.left=x + "px";
+            document.getElementById("nave").style.transform;
+        }
+        if(teclas.has("d")) {
+            x = x+15;
+            document.getElementById("nave").style.left=x + "px";
+        }
+        if(teclas.has("w")) {
+            y = y-15;
+            document.getElementById("nave").style.top=y + "px";
+        }
+        if(teclas.has("s")) {
+            y = y+15;
+            document.getElementById("nave").style.top=y + "px";
+        }
+    }
+
 
 function detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY){
     if( (naveX < eneX + enemigo.width) &&
@@ -118,4 +91,21 @@ function detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY){
             return true;
         }
         return false;
+}
+
+function temporizador(){
+    let numero = 0;
+    var cont = document.createElement("h1");
+    cont.textContent=numero;
+    body.append(cont);
+
+    //Subir el contador con un interval para que sume 1 por cada segundo, para saber cuanto tiempo has sobrevivido//
+
+    
+    setInterval(suma, 1000);
+
+    function suma(){
+        numero = numero + 1;
+        cont.textContent=numero;   
+    }
 }
