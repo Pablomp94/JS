@@ -1,5 +1,3 @@
-
-
 function juego(){  
     let nombre = prompt("Introduce tu nombre:");
     let cantene = prompt("Introduce la cantidad de enemigos");
@@ -9,9 +7,12 @@ function juego(){
     /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
-    setInterval(movimientoEnemigo, 2000);
-    
+    //setInterval(movimientoEnemigo, 2000);
+    //setInterval(detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY), 20);   
 }
+
+
+
 
 
 //Creo en tiempo de ejecucion la nave//
@@ -28,13 +29,13 @@ function nave(){
 let teclas = new Set();
 //Creo el evento//
 document.addEventListener("keydown", (event) => 
-    teclas.add(event.key));
+teclas.add(event.key));
 document.addEventListener("keyup",evento => teclas.delete(evento.key))
 //LLamo a la funcion del movimiento de la nave y compruebe cada 20ms si se esta pulsando una tecla//
 setInterval(movimientoNave, 20);
 var x, y;
-x=650;
-y=500;
+x=650;  //parseInt(document.getElementById("nave").getBoundingClientRect().left);
+y=500;  //parseInt(document.getElementById("nave").getBoundingClientRect().top);
 /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
 tambien recoje el espacio para disparar*/
 function movimientoNave(){
@@ -126,31 +127,40 @@ function movimientoEnemigo(){
     }
     
     setInterval(mov,20);
-
     function mov(){
         document.getElementById("marciano").style.top= (posy = (posy + ey)) + "px";
         document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
-    }
-
- 
+    } 
 }
 
 
 
 
 
+/*En este codigo realizo la deteccion de colisiones*/
 
+function detectarColisiones(){
+    /*Recojo los datos necesarios, en los que se va a crear el "perimetro" 
+    de las colisiones */
+    let laNave = document.getElementById("nave");
+    let naveX = parseInt(laNave.style.left);
+    let naveY = parseInt(laNave.style.top);
 
+    let enemigo = document.getElementById("enemigo");
+    let eneX = parseInt(enemigo.style.left);
+    let eneY = parseInt(enemigo.style.top);
 
-
-function detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY){
+    /*Recojo dichos datos y hago las comprobaciones necesarias
+    para saber si se está colisionando o no. */
     if( (naveX < eneX + enemigo.width) &&
         (naveX + laNave.width > eneX) &&
         (naveY < eneY + enemigo.height) &&
         (laNave.height + naveY > eneY)){
-            return true;
+            return true,
+            console.log("Colision");
         }
         return false;
+
 }
 
 
@@ -162,6 +172,7 @@ function temporizador(){
     cont.textContent=numero;
     body.append(cont);
 
+   
     //Subir el contador con un interval para que sume 1 por cada segundo, para saber cuanto tiempo has sobrevivido//
 
     
@@ -172,3 +183,6 @@ function temporizador(){
         cont.textContent=numero;   
     }
 }
+
+
+
