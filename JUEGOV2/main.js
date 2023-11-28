@@ -8,7 +8,7 @@ function juego(){
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
     //setInterval(movimientoEnemigo, 2000);
-    //setInterval(detectarColisiones(laNave,naveX,naveY,enemigo,eneX,eneY), 20);   
+    setInterval(detectarColisiones, 20);   
 }
 
 
@@ -34,15 +34,17 @@ document.addEventListener("keyup",evento => teclas.delete(evento.key))
 //LLamo a la funcion del movimiento de la nave y compruebe cada 20ms si se esta pulsando una tecla//
 setInterval(movimientoNave, 20);
 var x, y;
-x=650;  //parseInt(document.getElementById("nave").getBoundingClientRect().left);
-y=500;  //parseInt(document.getElementById("nave").getBoundingClientRect().top);
-/*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
-tambien recoje el espacio para disparar*/
-function movimientoNave(){
+let posnave = document.getElementById("nave");
+x=/*650;*/parseInt(posnave.style.left);
+y=/*500*/parseInt(posnave.style.top);
 
-        /*Recoje el pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
+
+
+    /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
+    tambien recoje el espacio para disparar*/
+    function movimientoNave(){
+        /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
         en la posicion superior centrar de la nave*/ 
-
         if(teclas.has(" ")) {
 
             xdis = x+50;
@@ -142,13 +144,16 @@ function movimientoEnemigo(){
 function detectarColisiones(){
     /*Recojo los datos necesarios, en los que se va a crear el "perimetro" 
     de las colisiones */
-    let laNave = document.getElementById("nave");
-    let naveX = parseInt(laNave.style.left);
-    let naveY = parseInt(laNave.style.top);
+    
+    let laNave = document.getElementById("nave").style;
+    let naveX = parseInt(laNave.left);
+    let naveY = parseInt(laNave.top);
+    console.log(naveX);
+    console.log(naveY);
 
-    let enemigo = document.getElementById("enemigo");
-    let eneX = parseInt(enemigo.style.left);
-    let eneY = parseInt(enemigo.style.top);
+    let enemigo = document.getElementById("marciano").style;
+    let eneX = parseInt(enemigo.left);
+    let eneY = parseInt(enemigo.top);
 
     /*Recojo dichos datos y hago las comprobaciones necesarias
     para saber si se está colisionando o no. */
@@ -160,7 +165,7 @@ function detectarColisiones(){
             console.log("Colision");
         }
         return false;
-
+        
 }
 
 
