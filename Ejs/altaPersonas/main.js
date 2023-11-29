@@ -10,7 +10,7 @@ arr.push(david);
 
 do {
   opc = prompt(
-    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Buscar por Nombre 4.Ordenar 5.Listar 0.Salir"
+    "Intrduce la opción a realizar: 1.Crear 2.Eliminar 3.Buscar por Nombre 4.Ordenar 5.Listar 6.Imprimir 0.Salir"
   );
 
   if (opc == 1) {
@@ -31,6 +31,9 @@ do {
 
   if (opc == 5) {
     verPersonas();
+  }
+  if(opc == 6){
+    imprimir();
   }
 } while (opc != 0);
 
@@ -110,4 +113,15 @@ function buscarNombre() {
       document.write(arr[i].nac, "<br>");
     } 
   }
+}
+
+function imprimir(){
+  
+    var ventana = window.open('', 'PRINT', 'height=400,width=600');
+    ventana.document.write(verPersonas().innerHTML);
+    ventana.document.close();
+    ventana.focus();
+    ventana.print();
+    ventana.close();
+    return true;
 }

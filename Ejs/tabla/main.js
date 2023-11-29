@@ -1,23 +1,10 @@
-let body = document.querySelector("body");
+let contenido = document.querySelector("div");
 
-body.createElement("table");
-
-let tabla = document.querySelector("table");
-tabla.setAttribute("id", "tabla");
-
-for(let i = 0; i<=3; i++){
-    let fila = document.createElement("tr");
-    let columna = document.createElement("th");
-
-    tabla.appendChild(fila);
-
-    fila.appendChild(columna);
-}
-tabla.addEventListener("contextmenu", menuContextual);
+contenido.addEventListener("contextmenu", menuContextual);
 
 function menuContextual(ev){
     ev.preventDefault();
-    let miDial = document.getElementById("tabla");
+    let miDial = document.getElementById("menu");
     miDial.style.left=ev.pageX + "px";
     miDial.style.left=ev.pageY + "px";
 

@@ -35,8 +35,8 @@ document.addEventListener("keyup",evento => teclas.delete(evento.key))
 setInterval(movimientoNave, 20);
 var x, y;
 let posnave = document.getElementById("nave");
-x=/*650;*/parseInt(posnave.style.left);
-y=/*500*/parseInt(posnave.style.top);
+x=650;
+y=500;
 
 
 
@@ -71,7 +71,7 @@ y=/*500*/parseInt(posnave.style.top);
 
         /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
-        if(teclas.has("a")) {
+        if(teclas.has("a") && (x>0)) {
             x = x-15;
             document.getElementById("nave").style.left=x + "px";
         }
@@ -79,7 +79,7 @@ y=/*500*/parseInt(posnave.style.top);
             x = x+15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("w")) {
+        if(teclas.has("w") && (x>0)) {
             y = y-15;
             document.getElementById("nave").style.top=y + "px";
         }
