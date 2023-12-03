@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON</title>
+    <script src="miJson.js"></script>
+  <style>
+    table, td, th{
+        border:1px solid black;
+        border-collapse:collapse;
+    }
+
+    td, th{
+        padding: 9px;
+    }
+
+    dialog{
+      background-color: rgb(46, 31, 31);
+      color: white;
+      position: absolute;
+      display: inline-block;
+      margin:0;
+    }
+
+    /* div{
+      background-color: rgb(46, 31, 31);
+      color: white;
+      position: absolute;
+
+    } */
+
+  </style>
+</head>
+<body>
+  
+   <p id="contenedor"></p>
+    
+   <table>
+    <!-- Faltaría hacer esto dinámico -->
+      <tr>
+        <th>Id</th>
+        <th>Cod_IOE</th>
+        <th>Nombre</th>
+        <th>Codigo</th>
+        <th>URL</th>
+      </tr>
+   </table>
+   <script>
+
+    let dialogo = document.createElement("dialog");
+    let parr;
+    for(let i = 0; i<3; i++){
+        parr = document.createElement("p");
+        parr.textContent = "Hola";
+        dialogo.appendChild(parr);
+    }
+
+    function menuContextual(evento){
+      evento.preventDefault();
+      console.log(evento.clientX);
+      console.log(evento.pageX);
+      dialogo.style.top = evento.pageY + "px";
+      dialogo.style.left = evento.pageX + "px";
+      document.body.appendChild(dialogo);
+
+      dialogo.style.visibility = "visible";
+    }
+    let misDatos = JSON.parse(datos);
+
+    let parrafo = document.getElementById("contenedor");
+
+    let tabl = document.getElementsByTagName("table")[0];
+    let tr, td, th;
+    let texto = "";
+
+    for(obj of misDatos){
+        tr = document.createElement("tr");
+        for(d in obj){
+            td = document.createElement("td");
+            td.textContent = obj[d];
+            tr.appendChild(td);
+        }
+        tabl.appendChild(tr);
+    }
+
+    let cosicas = document.querySelectorAll("td:nth-of-type(4)");
+     
+   window.addEventListener("click", function(){
+    dialogo.style.visibility = "hidden";
+   })
+    for(let p of cosicas){
+      p.addEventListener("contextmenu",menuContextual)
+
+    }
+</script>
+</body>
+</html>
