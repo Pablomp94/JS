@@ -1,4 +1,4 @@
-let princ = document.querySelector("body");
+let princ = document.body;
 let imagenes = document.getElementsByTagName("img");
 
 
@@ -17,7 +17,7 @@ for(let i=0; i<=imagenes.length; i++){
         nuevimg.setAttribute("src", contenido);
         body.appendlastChild(nuevimg);
 
-        setInterval(ampliar, 2000);
+        setTimeout(ampliar, 2000);
 
         function ampliar(){
             nuevimg.setAttribute("class", "ampliada");
