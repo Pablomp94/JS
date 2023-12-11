@@ -1,0 +1,25 @@
+{
+    "code": 0,
+    "result": "OK",
+    "autores": [ {"Nombre": "Fotos de Juan Pedro",
+              "BiografiaUrl": "http://juanpedro.es",
+              "Apodo": "elprofe",
+              "perros": [ "fotoPerros/perro1.jfif", "fotoPerros/perro2.jfif"] 
+              },
+              {"Nombre": "Fotos de Ester Colero",
+              "BiografiaUrl": "http://estercolero.es",
+              "Apodo": "olorosa",
+              "perros": [ "fotoPerros/perro3.jfif", "fotoPerros/perro4.jfif"] 
+             },
+             {"Nombre": "Fotos de Ana Conda",
+              "BiografiaUrl": "http://anaconda.es",
+              "Apodo": "culebra",
+              "perros": [ "fotoPerros/perro5.jfif", "fotoPerros/perro6.jfif","fotoPerros/perro7.jfif"] 
+              },
+              {"Nombre": "Fotos de Eva Liente",
+              "BiografiaUrl": "http://evaliente.es",
+              "Apodo": "valentina",
+              "perros": [ "fotoPerros/perro8.jfif"] 
+             }
+             ]               
+             }

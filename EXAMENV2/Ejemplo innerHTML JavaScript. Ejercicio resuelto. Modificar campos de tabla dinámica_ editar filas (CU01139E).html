@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es-es" dir="ltr">
+<head>
+    <meta charset="utf-8">
+	<meta name="author" content="César Krall">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Entrega nº39 del tutorial básico del programador web: JavaScript desde cero. Hemos visto la sintaxis y forma de uso básica de innerHTML en JavaScript. Ahora vamos a plantear y dar la solución a un ejercicio en el que tratamos de hacer un uso más avanzado de innerHTML. En concreto, dada una tabla con datos, veremos cómo podemos convertir los datos en editables, es decir, modificar dinámicamente los campos de la tabla.">
+	<meta name="generator" content="Joomla! - Open Source Content Management">
+	<title>Ejemplo innerHTML JavaScript. Ejercicio resuelto. Modificar campos de tabla dinámica: editar filas (CU01139E)</title>
+	<link href="/media/system/images/joomla-favicon.svg" rel="icon" type="image/svg+xml">
+	<link href="/media/system/images/favicon.ico" rel="alternate icon" type="image/vnd.microsoft.icon">
+	<link href="/media/system/images/joomla-favicon-pinned.svg" rel="mask-icon" color="#000">
+	<link href="https://www.aprenderaprogramar.com/index.php?option=com_finder&amp;view=search&amp;format=opensearch&amp;Itemid=35" rel="search" title="OpenSearch aprenderaprogramar.com" type="application/opensearchdescription+xml">
+
+    <link href="/media/system/css/joomla-fontawesome.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="lazy-stylesheet" /><noscript><link href="/media/system/css/joomla-fontawesome.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="stylesheet" /></noscript>
+	<link href="/media/templates/site/cassiopeia/css/global/colors_standard.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="stylesheet" />
+	<link href="/media/templates/site/cassiopeia/css/global/fonts-local_roboto.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="lazy-stylesheet" media="print" onload="this.media='all'" /><noscript><link href="/media/templates/site/cassiopeia/css/global/fonts-local_roboto.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="stylesheet" /></noscript>
+	<link href="/media/templates/site/cassiopeia/css/template.min.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="stylesheet" />
+	<link href="/media/templates/site/cassiopeia/css/vendor/joomla-custom-elements/joomla-alert.min.css?0.2.0" rel="stylesheet" />
+	<link href="/media/templates/site/cassiopeia_child_by_apr_270523/css/user.css?a92413c2c3e7e581ee5ecae91c4d0298" rel="stylesheet" />
+	<style>:root {
+		--hue: 214;
+		--template-bg-light: #f0f4fb;
+		--template-text-dark: #495057;
+		--template-text-light: #ffffff;
+		--template-link-color: var(--link-color);
+		--template-special-color: #001B4C;
+		
+	}</style>
+
+    <script src="/media/vendor/metismenujs/js/metismenujs.min.js?1.4.0" defer></script>
+	<script src="/media/templates/site/cassiopeia/js/mod_menu/menu-metismenu.min.js?a92413c2c3e7e581ee5ecae91c4d0298" defer></script>
+	<script type="application/json" class="joomla-script-options new">{"joomla.jtext":{"MOD_FINDER_SEARCH_VALUE":"Buscar&hellip;","ERROR":"Error","MESSAGE":"Mensaje","NOTICE":"Aviso","WARNING":"Advertencia","JCLOSE":"Cerrar","JOK":"OK","JOPEN":"Abrir"},"system.paths":{"root":"","rootFull":"https:\/\/www.aprenderaprogramar.com\/","base":"","baseFull":"https:\/\/www.aprenderaprogramar.com\/"},"csrf.token":"06e2ec25ca7a841a281b6a0daeeacaf2"}</script>
+	<script src="/media/system/js/core.min.js?ee06c8994b37d13d4ad21c573bbffeeb9465c0e2"></script>
+	<script src="/media/templates/site/cassiopeia/js/template.min.js?a92413c2c3e7e581ee5ecae91c4d0298" defer></script>
+	<script src="/media/com_finder/js/finder-es5.min.js?192ada3308b33825b8acd943f798d861fc91f20c" nomodule defer></script>
+	<script src="/media/system/js/messages-es5.min.js?c29829fd2432533d05b15b771f86c6637708bd9d" nomodule defer></script>
+	<script src="/media/com_finder/js/finder.min.js?94ebd84458710c39a53ed722128c66ff23f4b25d" type="module"></script>
+	<script src="/media/system/js/messages.min.js?7f7aa28ac8e8d42145850e8b45b3bc82ff9a6411" type="module"></script>
+	<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/www.aprenderaprogramar.com\/index.php?option=com_content&amp;view=featured&amp;Itemid=35","name":"Inicio"}},{"@type":"ListItem","position":2,"item":{"@id":"https:\/\/www.aprenderaprogramar.com\/index.php?option=com_content&amp;view=article&amp;id=57&amp;Itemid=86","name":"Cursos"}},{"@type":"ListItem","position":3,"item":{"@id":"https:\/\/www.aprenderaprogramar.com\/index.php?option=com_content&amp;view=category&amp;id=78&amp;Itemid=206","name":"Tutorial básico programador web: JavaScript desde cero"}},{"@type":"ListItem","position":4,"item":{"name":"Ejemplo innerHTML JavaScript. Ejercicio resuelto. Modificar campos de tabla dinámica: editar filas (CU01139E)"}}]}</script>
+
+</head>
+
+<body class="site com_content wrapper-static view-article no-layout no-task itemid-206 has-sidebar-right">
+    <header class="header container-header full-width">
+
+        
+        
+                    <div class="grid-child">
+                <div class="navbar-brand">
+                    <a class="brand-logo" href="/">
+                        <img loading="eager" decoding="async" src="https://www.aprenderaprogramar.com/media/templates/site/cassiopeia_child_by_apr_270523/images/logo.png" alt="aprenderaprogramar.com" width="750" height="89">                    </a>
+                                    </div>
+            </div>
+        
+                    <div class="grid-child container-nav">
+                                    <ul class="mod-menu mod-menu_dropdown-metismenu metismenu mod-list ">
+<li class="metismenu-item item-46 level-1"><a href="/index.php?option=com_content&amp;view=featured&amp;Itemid=46" >Inicio</a></li><li class="metismenu-item item-18 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=84&amp;Itemid=18" >Cómo empezar</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Cómo empezar"></button><ul class="mm-collapse"><li class="metismenu-item item-80 level-2 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;id=23&amp;Itemid=80" >LO MÁS BÁSICO</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="LO MÁS BÁSICO"></button><ul class="mm-collapse"><li class="metismenu-item item-73 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=28&amp;Itemid=73" >Quiero aprender a programar ¿Cómo empiezo?</a></li><li class="metismenu-item item-77 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=35&amp;Itemid=77" >¿Qué es y para qué sirve programar?</a></li><li class="metismenu-item item-78 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=38&amp;Itemid=78" >¿Qué pasos debemos dar para aprender a programar?</a></li><li class="metismenu-item item-79 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=39&amp;Itemid=79" >¿Qué lenguaje de programación estudiar o utilizar?</a></li><li class="metismenu-item item-96 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=40&amp;Itemid=96" >Pros y contras de internet para aprender programación</a></li><li class="metismenu-item item-100 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=41&amp;Itemid=100" >¿Se necesita programación para crear páginas web?</a></li></ul></li><li class="metismenu-item item-81 level-2 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;id=19&amp;Itemid=81" >CÓMO UTILIZAR aprenderaprogramar</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="CÓMO UTILIZAR aprenderaprogramar"></button><ul class="mm-collapse"><li class="metismenu-item item-102 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=43&amp;Itemid=102" >¿Qué es y a quién va dirigido aprenderaprogramar?</a></li><li class="metismenu-item item-74 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=44&amp;Itemid=74" >¿Cómo utilizar aprenderaprogramar?</a></li></ul></li><li class="metismenu-item item-189 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=39&amp;Itemid=189" >ORIENTACIÓN ACADÉMICA</a></li></ul></li><li class="metismenu-item item-26 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=87&amp;Itemid=26" >Libros</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Libros"></button><ul class="mm-collapse"><li class="metismenu-item item-103 level-2 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;id=25&amp;Itemid=103" >LIBROS EDITADOS POR aprenderaprogramar</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="LIBROS EDITADOS POR aprenderaprogramar"></button><ul class="mm-collapse"><li class="metismenu-item item-211 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=693&amp;Itemid=211" >Aprende a programar: pseudocódigo, diagramas de flujo...</a></li><li class="metismenu-item item-106 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=97&amp;Itemid=106" >Aprender a programar: algoritmos y fundamentos...</a></li><li class="metismenu-item item-107 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=98&amp;Itemid=107" >Introd. a la creación y administración web con Joomla</a></li><li class="metismenu-item item-197 level-3"><a href="/index.php?option=com_content&amp;view=article&amp;id=297&amp;Itemid=197" >Aprender a programar Java desde cero, paso a paso</a></li></ul></li><li class="metismenu-item item-105 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=101&amp;Itemid=105" >Procedimiento de compra y envío de libros</a></li><li class="metismenu-item item-174 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=86&amp;Itemid=174" >Librerías y distribuidores</a></li><li class="metismenu-item item-175 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=87&amp;Itemid=175" >Cómo publicar un libro con nuestra editorial</a></li></ul></li><li class="metismenu-item item-86 level-1 active deeper parent"><a href="/index.php?option=com_content&amp;view=article&amp;id=57&amp;Itemid=86" >Cursos</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Cursos"></button><ul class="mm-collapse"><li class="metismenu-item item-59 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=28&amp;Itemid=59" >Curso: Bases de la programación Nivel I. Pseudocódigo</a></li><li class="metismenu-item item-60 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=36&amp;Itemid=60" >Curso Bases de la programación Nivel II. Prog. modular</a></li><li class="metismenu-item item-61 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=37&amp;Itemid=61" >Curso Aprender a programar en Visual Basic desde cero</a></li><li class="metismenu-item item-210 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=82&amp;Itemid=210" >Curso básico de programación lenguaje C desde cero</a></li><li class="metismenu-item item-188 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=68&amp;Itemid=188" >Curso Aprender programación Java desde cero</a></li><li class="metismenu-item item-180 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=58&amp;Itemid=180" >Curso Lenguaje programación Java Nivel Avanzado I</a></li><li class="metismenu-item item-192 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=69&amp;Itemid=192" >Tutorial básico del programador web: HTML desde cero</a></li><li class="metismenu-item item-203 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=75&amp;Itemid=203" >Tutorial básico del programador web: CSS desde cero</a></li><li class="metismenu-item item-193 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=70&amp;Itemid=193" >Tutorial básico del programador web: PHP desde cero</a></li><li class="metismenu-item item-206 level-2 current active"><a href="/index.php?option=com_content&amp;view=category&amp;id=78&amp;Itemid=206" aria-current="location">Tutorial básico programador web: JavaScript desde cero</a></li><li class="metismenu-item item-212 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=83&amp;Itemid=212" >Tutorial básico programador web: Ajax desde cero</a></li><li class="metismenu-item item-152 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=38&amp;Itemid=152" >Curso Creación y administración web: Joomla desde cero</a></li><li class="metismenu-item item-155 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=62&amp;Itemid=155" >Tickets de soporte aprenderaprogramar</a></li><li class="metismenu-item item-176 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=88&amp;Itemid=176" >Itinerario formativo básico aprenderaprogramar</a></li><li class="metismenu-item item-87 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=64&amp;Itemid=87" >CURSOS TUTORIZADOS ON LINE - INSCRIPCIONES</a></li></ul></li><li class="metismenu-item item-32 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=89&amp;Itemid=32" >Empleo</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Empleo"></button><ul class="mm-collapse"><li class="metismenu-item item-202 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=74&amp;Itemid=202" >Encontrar empleo en el área de programación</a></li><li class="metismenu-item item-156 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=40&amp;Itemid=156" >Ofertas empleo aprenderaprogramar España</a></li><li class="metismenu-item item-157 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=157" >Ofertas empleo aprenderaprogramar México</a></li><li class="metismenu-item item-158 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=158" >Ofertas empleo aprenderaprogramar Argentina</a></li><li class="metismenu-item item-159 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=159" >Ofertas empleo aprenderaprogramar Chile</a></li><li class="metismenu-item item-160 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=160" >Ofertas empleo aprenderaprogramar Perú</a></li><li class="metismenu-item item-161 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=161" >Ofertas empleo aprenderaprogramar Colombia</a></li><li class="metismenu-item item-162 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=69&amp;Itemid=162" >Ofertas empleo aprenderaprogramar Venezuela</a></li></ul></li><li class="metismenu-item item-48 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=90&amp;Itemid=48" >Humor!!!</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Humor!!!"></button><ul class="mm-collapse"><li class="metismenu-item item-191 level-2"><a href="/index.php?option=com_phocagallery&amp;view=categories&amp;id=0&amp;Itemid=191" >Dibujos humor informático</a></li></ul></li><li class="metismenu-item item-52 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=91&amp;Itemid=52" >Divulgación</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Divulgación"></button><ul class="mm-collapse"><li class="metismenu-item item-163 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=46&amp;Itemid=163" >Lenguajes y entornos</a></li><li class="metismenu-item item-164 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=45&amp;Itemid=164" >Tendencias en programación</a></li><li class="metismenu-item item-165 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=47&amp;Itemid=165" >Empresas y emprendedores</a></li><li class="metismenu-item item-179 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=57&amp;Itemid=179" >Herramientas informáticas</a></li><li class="metismenu-item item-182 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=60&amp;Itemid=182" >Servicios web gratutitos</a></li><li class="metismenu-item item-201 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=73&amp;Itemid=201" >De todo un poco</a></li><li class="metismenu-item item-401 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=124&amp;Itemid=401" >Historia de la enseñanza de la programación para niños</a></li></ul></li><li class="metismenu-item item-53 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=92&amp;Itemid=53" >Zona crash</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Zona crash"></button><ul class="mm-collapse"><li class="metismenu-item item-177 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=54&amp;Itemid=177" >Artículos para no dormir</a></li><li class="metismenu-item item-204 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=76&amp;Itemid=204" >Relatos, cuentos y ensayos</a></li><li class="metismenu-item item-167 level-2"><a href="/index.php?option=com_phocagallery&amp;view=category&amp;id=24&amp;Itemid=167" >Dibujos Crash</a></li><li class="metismenu-item item-168 level-2"><a href="/index.php?option=com_phocagallery&amp;view=categories&amp;id=0&amp;Itemid=168" >Fotografías Crash</a></li><li class="metismenu-item item-320 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=963&amp;Itemid=320" >Remitidos</a></li></ul></li><li class="metismenu-item item-183 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=96&amp;Itemid=183" >Camisetas</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Camisetas"></button><ul class="mm-collapse"><li class="metismenu-item item-198 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=64&amp;Itemid=198" >Camisetas a todo color</a></li><li class="metismenu-item item-199 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=63&amp;Itemid=199" >Camisetas a 5 colores</a></li><li class="metismenu-item item-200 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=684&amp;Itemid=200" >Catálogo de camisetas humor informático</a></li></ul></li><li class="metismenu-item item-34 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=94&amp;Itemid=34" >Conócenos</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Conócenos"></button><ul class="mm-collapse"><li class="metismenu-item item-171 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=51&amp;Itemid=171" >Líneas de actividad</a></li><li class="metismenu-item item-205 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=77&amp;Itemid=205" >Publicidad y artículos o posts patrocinados</a></li><li class="metismenu-item item-95 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=52&amp;Itemid=95" >Qué nos diferencia</a></li><li class="metismenu-item item-170 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=33&amp;Itemid=170" >Dónde estamos</a></li><li class="metismenu-item item-94 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=53&amp;Itemid=94" >Quiénes somos</a></li><li class="metismenu-item item-173 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=85&amp;Itemid=173" >Cómo ser colaborador</a></li><li class="metismenu-item item-178 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=100&amp;Itemid=178" >Sistema de pagos seguros</a></li><li class="metismenu-item item-172 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=84&amp;Itemid=172" >Aviso legal</a></li></ul></li><li class="metismenu-item item-186 level-1 deeper parent"><a href="/foros" >Foros</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Foros"></button><ul class="mm-collapse"><li class="metismenu-item item-322 level-2"><a href="/foros/index.php?board=1.0" >Aprender a programar desde cero: iniciación.</a></li><li class="metismenu-item item-323 level-2"><a href="/foros/index.php?board=2.0" >C, Java, VB, HTML, PHP, CSS, Javascript, Ajax y más</a></li><li class="metismenu-item item-324 level-2"><a href="/foros/index.php?board=3.0" >De todo un poco... ofertas empleo y otros.</a></li><li class="metismenu-item item-325 level-2"><a href="/oros/index.php?board=4.0" >Comunidad: preséntate a la comunidad y comunica.</a></li></ul></li><li class="metismenu-item item-207 level-1"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=79&amp;Itemid=207" >Directorios</a></li><li class="metismenu-item item-208 level-1"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=100&amp;Itemid=208" >Formación</a></li><li class="metismenu-item item-281 level-1"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=109&amp;Itemid=281" >Empresas</a></li><li class="metismenu-item item-306 level-1 deeper parent"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=113&amp;Itemid=306" >Para niños</a><button class="mm-collapsed mm-toggler mm-toggler-link" aria-haspopup="true" aria-expanded="false" aria-label="Para niños"></button><ul class="mm-collapse"><li class="metismenu-item item-310 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=116&amp;filter_tag[0]=2&amp;filter_tag[1]=3&amp;filter_tag[2]=4&amp;filter_tag[3]=5&amp;filter_tag[4]=6&amp;filter_tag[5]=7&amp;filter_tag[6]=8&amp;filter_tag[7]=9&amp;filter_tag[8]=10&amp;filter_tag[9]=11&amp;filter_tag[10]=12&amp;filter_tag[11]=13&amp;filter_tag[12]=14&amp;filter_tag[13]=15&amp;Itemid=310" >Cosas interesantes sobre la programación y algoritmia</a></li><li class="metismenu-item item-312 level-2"><a href="/index.php?option=com_content&amp;view=article&amp;id=969&amp;Itemid=312" >Didac-Prog Cartesia: descarga la aplicación y el manual</a></li><li class="metismenu-item item-311 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=115&amp;Itemid=311" >Curso de programación para niños con Didac-Pr Cartesia</a></li><li class="metismenu-item item-318 level-2"><a href="/index.php?option=com_content&amp;view=category&amp;id=117&amp;Itemid=318" >Video curso tutorial programación para niños con Paula</a></li><li class="metismenu-item item-316 level-2"><a href="/cartesia2020" onclick="window.open(this.href, 'targetWindow', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,'); return false;">Didac-Pr Cartesia: aplicación online programación niños</a></li></ul></li></ul>
+
+                                            </div>
+            </header>
+
+    <div class="site-grid">
+                    <div class="container-banner full-width">
+                <div class="mod-banners bannergroup">
+
+    <div class="mod-banners__item banneritem">
+                                        <div style="background-color:#e5e8d6;">
+<!-- added by apr banner ref250421_H3PO-->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9526571771177991"
+     crossorigin="anonymous"></script>
+<!-- adaptable horizontal ref 250421 H3PO -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9526571771177991"
+     data-ad-slot="6263289667"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>            </div>
+
+</div>
+
+            </div>
+        
+        
+                <div class="grid-child container-top-b">
+            <aside class="top-b card right" aria-label="Inicio_mapaweb_contacto">
+        <div class="card-body">
+                <ul class="mod-menu mod-menu_dropdown-metismenu metismenu mod-list menu-horizontal">
+<li class="metismenu-item item-35 level-1 default"><a href="/index.php?option=com_content&amp;view=featured&amp;Itemid=35" >       Inicio        </a></li><li class="metismenu-item item-108 level-1"><a href="/index.php?option=com_osmap&amp;view=html&amp;id=1&amp;Itemid=108" >       Mapa web       </a></li><li class="metismenu-item item-37 level-1"><a href="/index.php?option=com_contact&amp;view=contact&amp;id=1&amp;Itemid=37" >       Contacto       </a></li></ul>
+    </div>
+</aside>
+<div class="top-b card ">
+        <div class="card-body">
+                
+<form class="mod-finder js-finder-searchform form-search" action="/index.php?option=com_finder&amp;view=search&amp;Itemid=35" method="get" role="search">
+    <label for="mod-finder-searchword146" class="visually-hidden finder">Buscar</label><div class="mod-finder__search input-group"><input type="text" name="q" id="mod-finder-searchword146" class="js-finder-search-query form-control" value="" placeholder="Buscar&hellip;"><button class="btn btn-primary" type="submit"><span class="icon-search icon-white" aria-hidden="true"></span> Buscar</button></div>
+            <input type="hidden" name="option" value="com_finder"><input type="hidden" name="view" value="search"><input type="hidden" name="Itemid" value="35"></form>
+    </div>
+</div>
+
+        </div>
+        
+        
+        <div class="grid-child container-component">
+            <nav class="mod-breadcrumbs__wrapper" aria-label="Usted está aquí">
+    <ol class="mod-breadcrumbs breadcrumb px-3 py-2">
+                    <li class="mod-breadcrumbs__here float-start">
+                Está aquí: &#160;
+            </li>
+        
+        <li class="mod-breadcrumbs__item breadcrumb-item"><a href="/index.php?option=com_content&amp;view=featured&amp;Itemid=35" class="pathway"><span>Inicio</span></a></li><li class="mod-breadcrumbs__item breadcrumb-item"><a href="/index.php?option=com_content&amp;view=article&amp;id=57&amp;Itemid=86" class="pathway"><span>Cursos</span></a></li><li class="mod-breadcrumbs__item breadcrumb-item"><a href="/index.php?option=com_content&amp;view=category&amp;id=78&amp;Itemid=206" class="pathway"><span>Tutorial básico programador web: JavaScript desde cero</span></a></li>    </ol>
+    </nav>
+
+            
+            <div id="system-message-container" aria-live="polite"></div>
+
+            <main>
+            <div class="com-content-article item-page" itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="inLanguage" content="es-ES">
+    
+    
+        <div class="page-header">
+        <h1 itemprop="headline">
+            Ejemplo innerHTML JavaScript. Ejercicio resuelto. Modificar campos de tabla dinámica: editar filas (CU01139E)        </h1>
+                            </div>
+        
+        
+            <dl class="article-info text-muted">
+
+            <dt class="article-info-term">
+                    </dt>
+
+                    <dd class="createdby" itemprop="author" itemscope itemtype="https://schema.org/Person">
+    <span class="icon-user icon-fw" aria-hidden="true"></span>
+                    Escrito por: <span itemprop="name">César Krall</span>    </dd>
+        
+        
+        
+        
+        
+    
+            
+        
+            </dl>
+    
+    
+        
+                                                <div itemprop="articleBody" class="com-content-article__body">
+        <div style="margin: 0px 0px 10px; text-align: justify;"><span style="font-size: 16px; line-height: 115%;"><strong>Resumen: </strong></span><strong><span style="font-size: 12px;">Entrega nº39</span><span style="font-size: 12px;"> del curso </span></strong><strong><span style="font-size: 12px;"> "Tutorial básico del programador web: JavaScript desde cero".</span></strong></div>
+<h6>Codificación aprenderaprogramar.com: CU01139E</h6>
+<p> </p>
+<p> </p>
+<p><strong>EJERCICIO RESUELTO CON INNERHTML JAVASCRIPT</strong></p>
+<p style="text-align: justify;">En la anterior entrega del curso hemos visto la sintaxis y forma de uso básica de innerHTML en JavaScript. Ahora vamos a plantear y dar la solución a un ejercicio en el que tratamos de hacer un uso más avanzado de innerHTML. En concreto, dada una tabla con datos, veremos cómo podemos convertir los datos en editables.</p>
+<div style="text-align: center;"><img style="width: 80px; height: 80px;" src="/images/stories/Cursos/CU011/javascript_logo.png" alt="logo javascript" /></div>
+ 
+<p> </p>
+<div style="text-align: left;">
+<p><strong>ENUNCIADO DEL EJERCICIO</strong></p>
+<p style="text-align: justify;">Con este ejercicio queremos por un lado utilizar los conocimientos adquiridos a lo largo del curso, y por otra parte hacernos a la idea de que siempre necesitaremos buscar información adicional para resolver algunas cuestiones que no conocemos a priori. Cuando se trabaja en desarrollos web es imposible conocer toda la sintaxis y las posibles instrucciones, propiedades, etc. y por tanto es necesario recurrir a la consulta de libros, revistas o páginas web para obtener información adicional a nuestro conocimiento.</p>
+<p>El enunciado del ejercicio es el siguiente:</p>
+<p>Una página web carga una tabla con datos relativos al contenido nutricional de los alimentos como se muestra a continuación:</p>
+<br /><center>
+<table border="1" cellspacing="0" cellpadding="7"><caption>Contenido nutricional por cada 100 g de alimento.</caption>
+<tbody>
+<tr>
+<th style="text-align: center;">Alimento</th>
+<th style="text-align: center;">Calorías (kCal)</th>
+<th style="text-align: center;">Grasas (g)</th>
+<th style="text-align: center;">Proteína (g)</th>
+<th style="text-align: center;">Carbohidratos (g)</th>
+<th style="text-align: center;">Acciones</th>
+</tr>
+<tr>
+<td style="text-align: center;">Arándano</td>
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">12.7</td>
+<td style="text-align: center;"><span style="color: #0000cd;">Editar</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Plátano</td>
+<td style="text-align: center;">90</td>
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">23.5</td>
+<td style="text-align: center;"><span style="color: #0000cd;">Editar</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Cereza</td>
+<td style="text-align: center;">46</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">10.9</td>
+<td style="text-align: center;"><span style="color: #0000cd;">Editar</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">Fresa</td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;">0.5</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">8.3</td>
+<td style="text-align: center;"><span style="color: #0000cd;">Editar</span></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p> </p>
+<p> </p>
+<p style="text-align: justify;">Se desea que al pulsar en el texto Editar de la columna Acciones, ocurra lo siguiente:</p>
+<p style="text-align: justify;">a) El texto de esa columna que ponía &lt;&lt;Editar&gt;&gt; en color azul, será reemplazado por el texto &lt;&lt;En edición&gt;&gt; en color gris o negro.</p>
+<p style="text-align: justify;">b) Los datos en la fila correspondiente se convertirán en <strong>casillas de texto editables</strong> de modo que el usuario pueda modificar los datos de esa fila.</p>
+<p style="text-align: justify;">c) Debe aparecer en la parte inferior de la tabla el texto: &lt;&lt;Pulse Aceptar para guardar los cambios o cancelar para anularlos&gt;&gt; y dos botones: Aceptar y Cancelar, que podrán ser pulsados por el usuario para Aceptar los cambios o para cancelar.</p>
+<p style="text-align: justify;">Si el usuario pulsa en el botón Aceptar los datos de la fila en edición deben ser enviados a una url de destino por el método get. Por ejemplo si la url de destino es aprenderaprogramar.com y editáramos la fila correspondiente a Fresa y pulsamos aceptar, el navegador debe enviarnos a una url como esta:</p>
+<p style="text-align: justify;">http://aprenderaprogramar.com/?alimento=Fresa&amp;calorias=57&amp;grasas=1.5&amp;proteina=0.4&amp;carbohidratos=12.8</p>
+<p style="text-align: justify;">Atención: los datos que se deben enviar a la url de destino <strong>son los datos editados por el usuario</strong>, no los datos originales de la tabla.</p>
+<p style="text-align: justify;">Si el usuario pulsa en Cancelar se recargará la tabla original (de forma que no habrá ninguna fila en edición).</p>
+<p style="text-align: justify;">Si estando seleccionada una fila en edición el usuario pulsa sobre Editar en otra fila, se mostrará un mensaje indicando lo siguiente: “Solo se puede editar una línea. Recargue la página para poder editar otra”.</p>
+<p style="text-align: justify;">La siguiente imagen refleja la idea de lo que se quiere conseguir:</p>
+<div style="text-align: center;"><img style="width: 517px; height: 308px;" src="/images/stories/Cursos/CU011/CU01139E_1.png" alt="editar campos tabla javascript" width="517" height="308" /></div>
+<p> </p>
+<p> </p>
+<p style="text-align: justify;">En este ejercicio suponemos que la tabla va a cargar datos desde una base de datos, pero como nuestro objetivo no es el manejo de bases de datos ni de lenguajes del lado del servidor sino ver aplicaciones de JavaScript, nos limitaremos a crear la tabla manualmente con el código HTML necesario.</p>
+<p> </p>
+<p> </p>
+<p><strong>ORIENTACIONES PARA LA SOLUCIÓN: PASO 1</strong></p>
+<p style="text-align: justify;">Intenta resolver el ejercicio con los conocimientos adquiridos a lo largo del curso y realizando alguna consulta adicional en internet. Es bueno intentar enfrentarse a los problemas por uno mismo y tratar de resolverlos por uno mismo, ya que favorece el aprendizaje como programadores. Ten en cuenta que este ejercicio posiblemente no tenga una solución única, sino que hay distintas formas de plantearlo y distintas formas de resolverlo. Intenta crear tu propia solución y después compárala con la que indicaremos nosotros tratando de ver las ventajas e inconvenientes de una y otra forma de resolver el problema.</p>
+<p> </p>
+<p> </p>
+<p><strong>ORIENTACIONES PARA LA SOLUCIÓN: PASO 2</strong></p>
+<p style="text-align: justify;">Si necesitas una orientación aquí te indicamos a grandes rasgos la solución (complementa estas indicaciones buscando en internet aquello que puedas necesitar) que hemos creado nosotros para que trates de implementarla por ti mismo. Los pasos a seguir serían los siguientes:</p>
+<p style="text-align: justify;">1) Crea un archivo html de nombre testEdicionTablas.html donde tengas el código HTML de la tabla, de modo que el texto editar esté dentro de etiquetas span que respondan al evento onclick="transformarEnEditable(this)". Debajo de la tabla añade un div vacío. El div vacío servirá para añadirle lo que se debe mostrar cuando el usuario pulsa sobre un botón editar.</p>
+<p style="text-align: justify;">2) Crea un archivo css de nombre estilos.css donde tengas los estilos para la tabla y para las etiquetas span con el texto Editar, botones, etc.</p>
+<p style="text-align: justify;">3) Crea un archivo js de nombre functions.js donde tengas una variable global de nombre &lt;&lt;editando&gt;&gt; y tipo booleano que te permita saber si se encuentra en edición alguna fila o no.</p>
+<p style="text-align: justify;">4) Crea una función &lt;&lt;function transformarEnEditable(nodo)&gt;&gt; que debe encargarse de transformar en editables los datos de una fila definiéndolos en etiquetas &lt;input&gt; … &lt;/input&gt; usando innerHTML. Además debe añadir el texto &lt;&lt; Pulse Aceptar para guardar los cambios o cancelar para anularlos &gt;&gt; y los dos botones: Aceptar y Cancelar. Si ya había una fila en edición, en lugar de estos se deberá mostrar el mensaje &lt;&lt;Solo se puede editar una línea. Recargue la página para poder editar otra&gt;&gt;</p>
+<p style="text-align: justify;">5) Crea una función &lt;&lt;function capturarEnvio()&gt;&gt; que sirva para que cuando el usuario pulse el botón Aceptar, se cree un formulario con datos ocultos (hidden) capturados de las casillas de la fila en edición y se envíen a la url de destino por el método get. El formulario lo añadirás con innerHTML y el envío lo puedes realizar con la sentencia javascript document.nombreDelformulario.submit();</p>
+<p style="text-align: justify;">6) Crea la función anular que recargue la página original cuando el usuario pulse el botón cancelar. Esto puedes hacerlo con la sentencia JavaScript window.location.reload();</p>
+<p> </p>
+<p> </p>
+<p><strong>SOLUCIÓN PROPUESTA</strong></p>
+<p>A continuación indicamos el código de la solución propuesta. Ten en cuenta que esta no tiene por qué considerarse ni la única solución ni la mejor solución. Es posible que tú hayas definido una solución mejor que esta. Compara tu solución con la propuesta y trata de ver las ventajas e inconvenientes de cada una de ellas.</p>
+<p> </p>
+<p style="text-align: justify;">Archivo testEdicionTablas.html:</p>
+<center>
+<table border="1" width="730" cellspacing="1" cellpadding="7" align="center" bgcolor="#bdbdbd">
+<tbody>
+<tr>
+<td valign="top">
+<p>&lt;!DOCTYPE html&gt;</p>
+<p>&lt;html&gt; &lt;head&gt; &lt;title&gt;Portal web - aprenderaprogramar.com&lt;/title&gt; &lt;meta charset="utf-8"&gt;</p>
+<p>&lt;link rel="stylesheet" type="text/css" href="/estilos.css"&gt;</p>
+<p>&lt;script type="text/javascript" src="/functions.js"&gt;&lt;/script&gt;</p>
+<p>&lt;/head&gt;</p>
+<p>&lt;body&gt;</p>
+<p>&lt;table&gt;</p>
+<p>&lt;caption&gt;Contenido nutricional por cada 100 g de alimento.&lt;/caption&gt;</p>
+<p>&lt;tr&gt; &lt;th&gt;Alimento&lt;/th&gt; &lt;th&gt;Calorías (kCal)&lt;/th&gt; &lt;th&gt;Grasas (g)&lt;/th&gt;</p>
+<p>&lt;th&gt;Proteína (g)&lt;/th&gt; &lt;th&gt;Carbohidratos (g)&lt;/th&gt; &lt;th&gt;Opciones&lt;/th&gt;</p>
+<p>&lt;/tr&gt;</p>
+<p>&lt;tr&gt; &lt;td&gt;Arándano&lt;/td&gt; &lt;td&gt;49&lt;/td&gt; &lt;td&gt;0.2&lt;/td&gt;</p>
+<p>&lt;td&gt;0.4&lt;/td&gt; &lt;td&gt;12.7&lt;/td&gt; &lt;td&gt;&lt;span class="editar" onclick="transformarEnEditable(this)"&gt;Editar&lt;/span&gt;&lt;/td&gt;</p>
+<p>&lt;/tr&gt;</p>
+<p>&lt;tr&gt; &lt;td&gt;Plátano&lt;/td&gt; &lt;td&gt;90&lt;/td&gt; &lt;td&gt;0.3&lt;/td&gt;</p>
+<p>&lt;td&gt;1.0&lt;/td&gt; &lt;td&gt;23.5&lt;/td&gt; &lt;td&gt;&lt;span class="editar" onclick="transformarEnEditable(this)"&gt;Editar&lt;/span&gt;&lt;/td&gt;</p>
+<p>&lt;/tr&gt;</p>
+<p>&lt;tr&gt; &lt;td&gt;Cereza&lt;/td&gt; &lt;td&gt;46&lt;/td&gt; &lt;td&gt;0.4&lt;/td&gt;</p>
+<p>&lt;td&gt;0.9&lt;/td&gt; &lt;td&gt;10.9&lt;/td&gt; &lt;td&gt;&lt;span class="editar" onclick="transformarEnEditable(this)"&gt;Editar&lt;/span&gt;&lt;/td&gt;</p>
+<p>&lt;/tr&gt;</p>
+<p>&lt;tr&gt; &lt;td&gt;Fresa&lt;/td&gt; &lt;td&gt;37&lt;/td&gt; &lt;td&gt;0.5&lt;/td&gt;</p>
+<p>&lt;td&gt;0.8&lt;/td&gt; &lt;td&gt;8.3&lt;/td&gt; &lt;td&gt;&lt;span class="editar" onclick="transformarEnEditable(this)"&gt;Editar&lt;/span&gt;&lt;/td&gt;</p>
+<p>&lt;/tr&gt;</p>
+<p>&lt;/table&gt;</p>
+<p>&lt;div id="contenedorForm"&gt;</p>
+<p>&lt;/div&gt;</p>
+<p>&lt;/body&gt;</p>
+<p>&lt;/html&gt;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p> </p>
+<p style="text-align: justify;">Archivo estilos.css:</p>
+<center>
+<table border="1" width="730" cellspacing="1" cellpadding="7" align="center" bgcolor="#bdbdbd">
+<tbody>
+<tr>
+<td valign="top">
+<p>/* Curso JavaScript estilos aprenderaprogramar.com*/</p>
+<p>body {font-family: Arial, Helvetica, sans-serif; background-color: #FFF8DC;}</p>
+<p> </p>
+<p>table { font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif; font-size: 12px; margin: 45px; width: 550px;</p>
+<p>    text-align: center; border-collapse: collapse; }</p>
+<p> </p>
+<p>th { font-size: 13px; font-weight: normal; padding: 8px; background: #b9c9fe; border-top: 4px solid #aabcfe;</p>
+<p>    border-bottom: 1px solid #fff; color: #039; }</p>
+<p> </p>
+<p>td { padding: 8px; background: #e8edff; border-bottom: 1px solid #fff; color: #669; border-top: 1px solid transparent; }</p>
+<p> </p>
+<p>tr:hover td { background: #d0dafd; color: #339; }</p>
+<p> </p>
+<p>.editar {color: blue; cursor:pointer;}</p>
+<p> </p>
+<p>#contenedorForm {margin-left: 45px; font-size:12px;}</p>
+<p> </p>
+<p>.boton {   color: black; padding: 5px; margin: 10px;</p>
+<p>  background-color: #b9c9fe;</p>
+  font-weight: bold; }</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p> </p>
+<p style="text-align: justify;">Archivo functions.js:</p>
+<center>
+<table border="1" width="730" cellspacing="1" cellpadding="7" align="center" bgcolor="#bdbdbd">
+<tbody>
+<tr>
+<td valign="top">
+<p>/*Curso JavaScript aprenderaprogramar.com */</p>
+<p>var editando=false;</p>
+<p> </p>
+<p><strong>function transformarEnEditable(nodo)</strong>{</p>
+<p>//El nodo recibido es SPAN</p>
+<p>if (editando == false) {</p>
+<p>var nodoTd = nodo.parentNode; //Nodo TD</p>
+<p>var nodoTr = nodoTd.parentNode; //Nodo TR</p>
+<p>var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV</p>
+<p>var nodosEnTr = nodoTr.getElementsByTagName('td');</p>
+<p>var alimento = nodosEnTr[0].textContent; var calorias = nodosEnTr[1].textContent;</p>
+<p>var grasas = nodosEnTr[2].textContent; var proteina = nodosEnTr[3].textContent;</p>
+<p>var carbohidratos = nodosEnTr[4].textContent; var opciones = nodosEnTr[5].textContent;</p>
+<p>var nuevoCodigoHtml = '&lt;td&gt;&lt;input type="text" name="alimento" id="alimento" value="'+alimento+'" size="10"&gt;&lt;/td&gt;'+</p>
+<p>'&lt;td&gt;&lt;input type="text" name="calorias" id="calorias" value="'+calorias+'" size="5"&lt;/td&gt;'+</p>
+<p>'&lt;td&gt;&lt;input type="text" name="grasas" id="grasas" value="'+grasas+'" size="5"&lt;/td&gt;'+</p>
+<p>'&lt;td&gt;&lt;input type="text" name="proteina" id="proteina" value="'+proteina+'" size="5"&lt;/td&gt;'+</p>
+<p>'&lt;td&gt;&lt;input type="text" name="carbohidratos" id="carbohidratos" value="'+carbohidratos+'" size="5"&lt;/td&gt; &lt;td&gt;En edición&lt;/td&gt;';</p>
+<p> </p>
+<p>nodoTr.innerHTML = nuevoCodigoHtml;</p>
+<p> </p>
+<p>nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+</p>
+<p>'&lt;form name = "formulario" action="http://aprenderaprogramar.com" method="get" onsubmit="capturarEnvio()" onreset="anular()"&gt;'+</p>
+<p>'&lt;input class="boton" type = "submit" value="Aceptar"&gt; &lt;input class="boton" type="reset" value="Cancelar"&gt;';</p>
+<p>editando = "true";}</p>
+<p>else {alert ('Solo se puede editar una línea. Recargue la página para poder editar otra');</p>
+<p>}</p>
+<p>}</p>
+<p> </p>
+<p><strong>function capturarEnvio()</strong>{</p>
+<p>var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV</p>
+<p>nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+</p>
+<p>'&lt;form name = "formulario" action="http://aprenderaprogramar.com" method="get" onsubmit="capturarEnvio()" onreset="anular()"&gt;'+</p>
+<p>'&lt;input type="hidden" name="alimento" value="'+document.querySelector('#alimento').value+'"&gt;'+</p>
+<p>'&lt;input type="hidden" name="calorias" value="'+document.querySelector('#calorias').value+'"&gt;'+</p>
+<p>'&lt;input type="hidden" name="grasas" value="'+document.querySelector('#grasas').value+'"&gt;'+</p>
+<p>'&lt;input type="hidden" name="proteina" value="'+document.querySelector('#proteina').value+'"&gt;'+</p>
+<p>'&lt;input type="hidden" name="carbohidratos" value="'+document.querySelector('#carbohidratos').value+'"&gt;'+</p>
+<p>'&lt;input class="boton" type = "submit" value="Aceptar"&gt; &lt;input class="boton" type="reset" value="Cancelar"&gt;';</p>
+<p>document.formulario.submit();</p>
+<p>}</p>
+<p> </p>
+<p><strong>function anular()</strong>{</p>
+<p>window.location.reload();</p>
+}</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p> </p>
+<p> </p>
+<p style="text-align: justify;">Revisa el código propuesto, ejecútalo en tu navegador y comprueba su funcionamiento. Aunque usamos algunos elementos novedosos como el evento onreset o la invocación window.location.reload(), debes ser capaz de comprender el código HTML, CSS y JavaScript, así como todos los procesos que tienen lugar y cómo se controla el flujo de la aplicación y los cambios que tienen lugar dinámicamente. Si tienes dudas, consulta en los foros aprenderaprogramar.com.</p>
+<p> </p>
+<p> </p>
+<br />
+<p> </p>
+<p> </p>
+<p> </p>
+</div>
+<p style="text-align: justify;">Para acceder a la información general sobre este curso y al listado completo de entregas pulsa en este link:  <a href="/index.php?option=com_content&amp;view=category&amp;id=78&amp;Itemid=206">Ver curso completo.</a></p>
+<p style="text-align: justify;">Para  hacer un comentario o consulta utiliza los <a href="/foros/" target="_blank" rel="noopener noreferrer">foros aprenderaprogramar.com,</a> abiertos a cualquier persona independientemente de su nivel de conocimiento.</p><p>&nbsp;</p>    </div>
+
+        
+        
+<nav class="pagenavigation">
+    <span class="pagination ms-0">
+                <a class="btn btn-sm btn-secondary previous" href="/index.php?option=com_content&amp;view=article&amp;id=818:innerhtml-javascript-modificar-texto-o-html-pej-div-en-tiempo-real-this-acceder-al-nodo-actual-cu01138e&amp;catid=78&amp;Itemid=206" rel="prev">
+            <span class="visually-hidden">
+                Artículo anterior: innerHTML JavaScript. Modificar texto o html (p.ej. div) en tiempo real. this:  acceder al nodo actual (CU01138E)            </span>
+            <span class="icon-chevron-left" aria-hidden="true"></span> <span aria-hidden="true">Anterior</span>            </a>
+                    <a class="btn btn-sm btn-secondary next" href="/index.php?option=com_content&amp;view=article&amp;id=820:javascript-createelement-createtextnode-appendchild-modificar-propiedad-onclick-con-javascript-cu01140e&amp;catid=78&amp;Itemid=206" rel="next">
+            <span class="visually-hidden">
+                Artículo siguiente: JavaScript createElement, createTextNode, appendChild.  Modificar propiedad onclick con JavaScript (CU01140E)            </span>
+            <span aria-hidden="true">Siguiente</span> <span class="icon-chevron-right" aria-hidden="true"></span>            </a>
+        </span>
+</nav>
+                                        <div style="font-weight:bold; text-decoration: none; font-size:0.8rem;">
+	<p style="margin-bottom:0;">Descargar archivo:</p>
+	<table class="com-content-category__table category table table-striped table-bordered table-hover">
+	<caption class="visually-hidden"> Download  </caption>
+	<tbody><tr class="cat-list-row0" >
+		<td class="list-author">
+		<span class="icon-download" aria-hidden="true"></span>&nbsp;&nbsp;
+		<a target="_blank" style="text-decoration: none;" href="/attachments/article/819/CU01139E innerhtml ejemplo javascript cambiar html tiempo real ejercicio.pdf">CU01139E innerhtml ejemplo javascript cambiar html tiempo real ejercicio.pdf</a>
+		</td>
+		<td style="text-align:center;" class="list-author">&nbsp;&nbsp;115 Kb </td>
+		</tr></tbody>
+	</table>
+	</div></div>
+
+            </main>
+            
+        </div>
+
+                <div class="grid-child container-sidebar-right">
+            <div class="sidebar-right card ">
+        <div class="card-body">
+                <div class="mod-banners bannergroup">
+
+    <div class="mod-banners__item banneritem">
+                                        <div style="padding:6px; text-align:center; background-color:#e5e8d6;">
+<!-- Comienzo 160x600 creado 260210 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:160px;height:600px"
+     data-ad-client="ca-pub-9526571771177991"
+     data-ad-slot="6699876101"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<!-- Fin 160x600 creado 260210 -->
+</div>            </div>
+
+</div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">En Facebook!</h3>        <div class="card-body">
+                
+<div id="mod-custom117" class="mod-custom custom">
+    <p style="text-align: center;">Ahora puedes seguirnos <a href="https://www.facebook.com/aprenderaprogramarcom" target="_blank" rel="noopener noreferrer">en Facebook</a>. Noticias, novedades y mucho más. ¡Te esperamos!</p>
+<p style="text-align: center;"><a href="https://www.facebook.com/aprenderaprogramarcom" target="_blank" rel="noopener noreferrer"><img style="width: 120px; height: 50px;" src="http://www.courtneybrown.com/graphics/icon-small-facebook.gif" alt="" /></a></p></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">Remitidos</h3>        <div class="card-body">
+                
+<div id="mod-custom122" class="mod-custom custom">
+    <div style="margin-left: -25px; margin-top: -10px;">
+<ul>
+<li style="margin-bottom: 6px;">Editar y personalizar archivos pdf profesionalmente. <a href="/index.php?option=com_content&amp;view=article&amp;id=964:pdfs-a-tu-medida-herramientas-de-edicion-y-personalizacion-dibujo-color-formato-textos-datos-etc&amp;catid=123&amp;Itemid=208">Hazlo con Lumin PDF.</a></li>
+<li style="margin-bottom: 6px;">Posicionamiento SEO y mejora de resultados en buscadores. <a title="Posicionamiento SEO creación web" href="/index.php?option=com_content&amp;view=article&amp;id=1055:posicionamiento-seo-puntos-clave-a-tener-en-cuenta-antes-de-crear-una-pagina-web-resultados-en-buscadores&amp;catid=119&amp;Itemid=281">Crea tu página web.</a></li>
+<li style="margin-bottom: 6px;">¿Conexión a internet para creación de videojuegos? <a title="Optimum" href="/index.php?option=com_content&amp;view=article&amp;id=1032:los-5-mejores-software-de-creacion-de-videojuegos-para-principiantes-desde-unity-a-stencyl-y-otros-mas&amp;catid=119&amp;Itemid=281">Utiliza Optimum.</a></li>
+<li style="margin-bottom: 6px;">Crear logotipos profesionales para empresas. <a title="Turbologo, herramienta para crear logotipos" href="/index.php?option=com_content&amp;view=article&amp;id=1031:como-crear-un-logotipo-para-una-empresa-inmobiliaria-con-una-herramienta-gratuita-online-de-acabado-profesional&amp;catid=119&amp;Itemid=281">Turbologo, tu herramienta online.</a></li>
+<li style="margin-bottom: 6px;">El mejor editor y entorno para desarrollo web y PHP: <a title="IDE desarrollo web y PHP Codelobster" href="/index.php?option=com_content&amp;view=article&amp;id=965:codelobster-editor-de-codigo-y-entorno-de-desarrollo-ideal-para-php-y-programacion-web-y-de-frameworks-o-cms&amp;catid=111&amp;Itemid=281">Codelobster IDE.</a></li>
+<li style="margin-bottom: 6px;">¿Cómo reducir con facilidad el tamaño de imágenes? <a title="Image Resizer for Windows" href="/index.php?option=com_content&amp;view=article&amp;id=1034:image-resizer-for-windows-como-cambiar-el-tamano-reducir-o-escalar-imagenes-y-fotografias-jpg-png&amp;catid=119&amp;Itemid=281">Image Resizer for Windows</a></li>
+<li style="margin-bottom: 6px;">Powerpoint, Excel, Word. Conseguir una <a title="Licencia Office 2021 legal y barata" href="/index.php?option=com_content&amp;view=article&amp;id=1038:como-conseguir-una-licencia-office-2021-legal-y-barata-microsoft-powerpoint-excel-word&amp;catid=123&amp;Itemid=208">licencia Office 2021 legal y barata.</a></li>
+</ul>
+</div></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">Política sobre cookies</h3>        <div class="card-body">
+                
+<div id="mod-custom120" class="mod-custom custom">
+    <p style="text-align: justify; margin-top: 0;"><span style="font-size: 11px;">Utilizamos cookies propias y de terceros para ofrecerte una mejor experiencia y servicio, de acuerdo a tus hábitos de navegación.<br /> <br /> Si continúas navegando, consideramos que aceptas su uso. Puedes obtener más información en nuestra <a href="http://aprenderaprogramar.com/index.php?option=com_content&amp;view=article&amp;id=84&amp;Itemid=172" target="_blank">Política de Cookies</a>.</span></p></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">RANKING APR2+</h3>        <div class="card-body">
+                
+<div id="mod-custom90" class="mod-custom custom">
+    <p style="text-align: center;"><strong>Ranking de lenguajes y entornos de programación aprenderaprogramar.com</strong><br /> </p>
+<p style="text-align: center;"><span style="text-decoration: underline;">NOVIEMBRE - DICIEMBRE 2023</span></p>
+<p style="text-align: center;"><strong>1. Java / J2EE<br /></strong>2. Entornos Oracle<br />3. Entornos SQL Server<br />4. Python<br />5. HTML, CSS<br />6. .NET, C#<br />7. JavaScript, Angular<br />8. Php, MySql<br /><br /><a title="enlace a articulo explica ranking" href="/index.php?option=com_content&amp;view=article&amp;id=29&amp;Itemid=51" target="_self">Acceder a detalles sobre el ranking de programación aprenderaprogramar.com</a><br /><br /></p></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">FOROS APR2+</h3>        <div class="card-body">
+                
+<div id="mod-custom113" class="mod-custom custom">
+    <p style="text-align: center;">Pregunta, responde, consulta, lee, intercambia...</p>
+<p style="text-align: center;"><a  href="http://www.aprenderaprogramar.com/foros"><strong> Participa!!!</strong> Entra en los foros aprenderaprogramar.com.</a></p></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">Lo más leído</h3>        <div class="card-body">
+                <ul class="mostread mod-list">
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=686:como-obtener-claves-o-contrasenas-de-redes-wifi-cracking-qa-por-naranjasq-ies-segura-una-red-inalambrica&amp;catid=45&amp;Itemid=164" itemprop="url">
+            <span itemprop="name">
+                Cómo obtener claves o contraseñas de redes wifi (cracking "a por naranjas") ¿Es segura una red inalámbrica?            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=28:quiero-aprender-a-programar-icomo-empiezo&amp;catid=23&amp;Itemid=73" itemprop="url">
+            <span itemprop="name">
+                Quiero aprender a programar: ¿Cómo empiezo?            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=542:que-es-un-servidor-y-cuales-son-los-principales-tipos-de-servidores-proxydns-webftppop3-y-smtp-dhcp&amp;catid=57&amp;Itemid=179" itemprop="url">
+            <span itemprop="name">
+                Qué es un servidor y cuáles son los principales tipos de servidores (proxy,dns, web,ftp,pop3 y smtp, dhcp...).            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=480:formatos-de-texto-html-negrita-cursiva-tachado-subrayado-superindice-subindice-b-y-strong-cu00713b&amp;catid=69&amp;Itemid=192" itemprop="url">
+            <span itemprop="name">
+                Formatos de texto HTML: negrita, cursiva, tachado, subrayado, superíndice, subíndice. b y strong (CU00713B)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=389:configurar-java-en-windows-variables-de-entorno-javahome-y-path-cu00610b&amp;catid=68&amp;Itemid=188" itemprop="url">
+            <span itemprop="name">
+                Configurar Java en Windows. Variables de entorno JAVA_HOME y PATH (CU00610B)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=419:tipos-de-datos-java-tipos-primitivos-int-boolean-y-objeto-string-array-o-arreglo-variables-cu00621b&amp;catid=68&amp;Itemid=188" itemprop="url">
+            <span itemprop="name">
+                Tipos de datos Java. Tipos primitivos (int, boolean...) y objeto (String, array o arreglo...) Variables (CU00621B)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=466:operadores-logicos-en-java-igual-distinto-and-or-not-mayor-menor-cortocircuito-cu00634b&amp;catid=68&amp;Itemid=188" itemprop="url">
+            <span itemprop="name">
+                Operadores lógicos en Java. Igual, distinto, and, or, not, mayor, menor. Cortocircuito. Prioridades (CU00634B)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=508:hipervinculos-links-o-enlaces-html-etiqueta-a-atributos-href-target-y-title-tipos-de-links-img-cu00717b&amp;catid=69&amp;Itemid=192" itemprop="url">
+            <span itemprop="name">
+                Hipervínculos, links o enlaces HTML. Etiqueta a. Atributos href, target y title. Tipos de links. img (CU00717B)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=140:tipos-de-variables-en-visual-basic-integer-single-double-string-object-boolean-etc-ejemplos-cu00308a&amp;catid=37&amp;Itemid=61" itemprop="url">
+            <span itemprop="name">
+                Tipos de variables en Visual Basic. Integer, Single, Double, String, Object, Boolean, etc. Ejemplos (CU00308A)            </span>
+        </a>
+    </li>
+    <li itemscope itemtype="https://schema.org/Article">
+        <a href="/index.php?option=com_content&amp;view=article&amp;id=236:ejercicios-resueltos-en-visual-basic-con-forms-labels-textbox-y-buttons-command-ejemplos-cu00322a&amp;catid=37&amp;Itemid=61" itemprop="url">
+            <span itemprop="name">
+                Ejercicios resueltos en Visual Basic con Forms, Labels, Textbox y Buttons (Command). Ejemplos (CU00322A)            </span>
+        </a>
+    </li>
+</ul>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">Donar o colaborar</h3>        <div class="card-body">
+                
+<div id="mod-custom114" class="mod-custom custom">
+    <div>
+<p style="text-align: center;">Este sitio se mantiene abierto gracias al apoyo de muchas personas. Si crees que merece la pena apoyar económicamente este sitio web puedes realizar una donación o colaborar. <a title="Contactar con aprenderaprogramar.com" href="/index.php?option=com_contact&amp;view=contact&amp;id=1&amp;Itemid=37">Contacta con nosotros.</a></p>
+</div></div>
+    </div>
+</div>
+<div class="sidebar-right card ">
+            <h3 class="card-header ">¿Puedo yo aprender?</h3>        <div class="card-body">
+                
+<div id="mod-custom116" class="mod-custom custom">
+    <p style="text-align: center;">Seas o no del área informática, si quieres aprender a programar te ofrecemos una solución guiada y personalizada: realizar un curso tutorizado on-line. Con este tipo de curso, podrás aprender a programar de forma ágil y amena.<br /> <br /> <img style="width: 110px; height: 47px;" src="http://lh5.ggpht.com/_PeVwghrmOec/TMkzEonRrcI/AAAAAAAAAHc/IxL8g0fTYtk/an_oliva_png.png" alt="" /></p>
+<p style="text-align: center;"><a title="enlace a articulo explica ranking" href="/index.php?option=com_content&amp;view=article&amp;id=64&amp;Itemid=87" target="_self"><span style="font-size: 12px;">Acceder a detalles y precios de los cursos tutorizados on-line</span></a></p></div>
+    </div>
+</div>
+
+        </div>
+        
+        
+            </div>
+
+        <footer class="container-footer footer full-width">
+        <div class="grid-child">
+            
+<div id="mod-custom119" class="mod-custom custom">
+    <div style="text-align: center; margin: 0 auto;">             Copyright 2006-2023 aprenderaprogramar.com                La web abierta a cualquier persona interesada en la programación</div></div>
+
+        </div>
+    </footer>
+    
+            <a href="#top" id="back-top" class="back-to-top-link" aria-label="Volver arriba">
+            <span class="icon-arrow-up icon-fw" aria-hidden="true"></span>
+        </a>
+    
+    
+</body>
+</html>

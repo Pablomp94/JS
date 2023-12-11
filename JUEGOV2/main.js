@@ -71,7 +71,7 @@ y=500;
 
         /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
-        if(teclas.has("a") && (x>0)) {
+        if(teclas.has("a")) {
             x = x-15;
             document.getElementById("nave").style.left=x + "px";
         }
@@ -79,7 +79,7 @@ y=500;
             x = x+15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("w") && (x>0)) {
+        if(teclas.has("w")) {
             y = y-15;
             document.getElementById("nave").style.top=y + "px";
         }
