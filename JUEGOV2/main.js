@@ -7,13 +7,13 @@ function juego(){
     /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
-    //setInterval(movimientoEnemigo, 2000);
+    setInterval(movimientoEnemigo, 2000);
     setInterval(detectarColisiones, 20);   
 }
 
 
 
-
+/////////////////NAVE////////////////////////////
 
 //Creo en tiempo de ejecucion la nave//
 function nave(){
@@ -71,23 +71,31 @@ y=500;
 
         /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
-        if(teclas.has("a")) {
+        if(teclas.has("a") && (x>=5)) {
             x = x-15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("d")) {
+        if(teclas.has("d") && (x<=1110)) {
             x = x+15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("w")) {
+        if(teclas.has("w") && (y>=8)) {
             y = y-15;
             document.getElementById("nave").style.top=y + "px";
         }
-        if(teclas.has("s")) {
+        if(teclas.has("s") && (y<=550)) {
             y = y+15;
             document.getElementById("nave").style.top=y + "px";
         }
     }
+
+
+
+
+
+
+/////////////////ENEMIGO////////////////////////////
+
 
 
 
@@ -97,6 +105,7 @@ function enemigos(cantene){
         var imagen = document.createElement("img"); 
         imagen.setAttribute("src", "marciano.png");
         imagen.setAttribute("id", "marciano"); 
+        imagen.setAttribute("class", "marciano");  
         var main = document.querySelector("body"); 
         main.appendChild(imagen);    
     }
@@ -107,9 +116,9 @@ function enemigos(cantene){
 //(provisional)Los enemigos aparecen de fuera de la pantalla en un punto y se van moviendo aleatoriamente hacia dentro de la pantalla.
 //(otra opcion)Aparecen arriba, dentro de la pantalla, y se mueven aleatoriamente
 //Si tocan el borde de la pantalla que no se sobrepase
-var posx = 1, posy = 1;
-function movimientoEnemigo(){
-    var uno, dos,ex, ey;
+var posx = 500, posy = 200;
+function movimientoEnemigo(cantene){
+    var uno, dos,ex,ey;
     uno = Math.floor(Math.random()* 2);
     dos = Math.floor(Math.random()* 2);
 
@@ -122,22 +131,29 @@ function movimientoEnemigo(){
         ex = 10;
     }
     if(dos == 0){
-        ey = -10;
+        ey = -10; 
     }
     if(dos == 1){
         ey = 10;
     }
     
-    setInterval(mov,20);
+    
     function mov(){
-        document.getElementById("marciano").style.top= (posy = (posy + ey)) + "px";
-        document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            do{
+                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            }while((posy>=8) && (posy<=550));
+    
+            do{
+                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            }while((posx<=1110) && (posx>=5));
+    
     } 
+    setInterval(mov,20);
 }
 
 
 
-
+/////////////////COLISIONES////////////////////////////
 
 /*En este codigo realizo la deteccion de colisiones*/
 
@@ -168,6 +184,7 @@ function detectarColisiones(){
         
 }
 
+/////////////////EXTRAS////////////////////////////
 
 /*Realizo en temporizador que es un texto que dentro tiene una variable, la cual se le va sumando 1 por cada segundo, haciendo un
 reloj del tiempo que se esta jugando*/
