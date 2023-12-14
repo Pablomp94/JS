@@ -29,20 +29,45 @@ let fotos = {
 
 
 let bod = document.querySelector("body");
-let cont = document.createElement("div");
-cont.appendChild(bod);
+document.createElement("div");
+let cont = document.querySelector("div");
+document.body.appendChild(cont);
+
 
 for(let miObj of fotos.autores){
-    for(let perr in miObj.perros){
+    for(let perr of miObj.perros){
         let ima = document.createElement("img");
+        ima.classList.add("imagen");
         ima.setAttribute("src", perr);
-        ima.appendChild(cont);
-    }  
+        cont.appendChild(ima);
+        ima.addEventListener("click", verFoto);
+        
+        addEventListener("click", advertencia);
+        ima.addEventListener("click", verFoto);
+
+        function advertencia(){
+            alert("Haga click en cualquier foto");
+        }
+
+        function verFoto(){
+            let contenido = ima.getAttribute("src");
+            let nuevimg = document.createElement("img");
+            nuevimg.setAttribute("src", contenido);
+            nuevimg.classList.add("ampliada");
+            body.appendlastChild(nuevimg);            
+            nuevimg.setAttribute("class", "ampliada");
+            
+            setTimeout(2000, eliminar);
+
+            function eliminar(){
+                body.removeChild(nuevimg);
+            }
+        }   
+    }
 }
 
 /*
-let princ = document.body;
-let imagenes = document.getElementsByTagName("img");
+
 
 
 princ.addEventListener("click", advertencia)

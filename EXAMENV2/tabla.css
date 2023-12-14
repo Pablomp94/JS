@@ -1,3 +1,7 @@
+:root{
+    --miVariable:#039;
+}
+
 body {font-family: Arial, Helvetica, sans-serif; background-color: #FFF8DC;}
 
  
@@ -10,7 +14,7 @@ table { font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif; font-si
 
 th { font-size: 13px; font-weight: normal; padding: 8px; background: #b9c9fe; border-top: 4px solid #aabcfe;
 
-    border-bottom: 1px solid #fff; color: #039; }
+    border-bottom: 1px solid #fff; color: var(--miVariable); }
 
  
 
