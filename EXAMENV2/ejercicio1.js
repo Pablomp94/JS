@@ -28,22 +28,29 @@ let fotos = {
 
 
 
-let bod = document.querySelector("body");
-document.createElement("div");
-let cont = document.querySelector("div");
-document.body.appendChild(cont);
+var div = document.createElement("div");
+var main = document.querySelector("body"); 
+main.appendChild(div);
 
 
 for(let miObj of fotos.autores){
     for(let perr of miObj.perros){
-        let ima = document.createElement("img");
+        var main = document.querySelector("body");
+        var ima = document.createElement("img");
         ima.classList.add("imagen");
         ima.setAttribute("src", perr);
-        cont.appendChild(ima);
-        ima.addEventListener("click", verFoto);
+        div.appendChild(ima);
         
-        addEventListener("click", advertencia);
-        ima.addEventListener("click", verFoto);
+        main.addEventListener("click", (ev) =>{
+            ev.stopPropagation();
+            advertencia();
+        }); 
+
+        ima.addEventListener("click", (ev) =>{
+            ev.stopPropagation();
+            verFoto();
+            
+        }); 
 
         function advertencia(){
             alert("Haga click en cualquier foto");
@@ -51,18 +58,24 @@ for(let miObj of fotos.autores){
 
         function verFoto(){
             let contenido = ima.getAttribute("src");
+            console.log(contenido);
             let nuevimg = document.createElement("img");
             nuevimg.setAttribute("src", contenido);
+            nuevimg.setAttribute("id", "nueva");
             nuevimg.classList.add("ampliada");
-            body.appendlastChild(nuevimg);            
+            main.appendChild(nuevimg);            
             nuevimg.setAttribute("class", "ampliada");
-            
-            setTimeout(2000, eliminar);
+
 
             function eliminar(){
-                body.removeChild(nuevimg);
+                document.getElementById("nueva").remove();
             }
+
+            setInterval(eliminar(), 2000);
         }   
+
+        
+  
     }
 }
 
