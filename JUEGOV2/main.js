@@ -38,6 +38,9 @@ let posnave = document.getElementById("nave");
 x=650;
 y=500;
 
+//RECOJO LOS PARAMETROS DEL TAMAÑO DE LA PANTALLA DEL NAVEGADOR//
+let tampantx = screen.width - 150;
+let tampanty = screen.height - 350;
 
 
     /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
@@ -71,19 +74,19 @@ y=500;
 
         /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
-        if(teclas.has("a") && (x>=5)) {
+        if(teclas.has("a") && (x>= 0)) {
             x = x-15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("d") && (x<=1110)) {
+        if(teclas.has("d") && (x<=tampantx)) {
             x = x+15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("w") && (y>=8)) {
+        if(teclas.has("w") && (y>=0)) {
             y = y-15;
             document.getElementById("nave").style.top=y + "px";
         }
-        if(teclas.has("s") && (y<=550)) {
+        if(teclas.has("s") && (y<=tampanty)) {
             y = y+15;
             document.getElementById("nave").style.top=y + "px";
         }
@@ -117,38 +120,92 @@ function enemigos(cantene){
 //(otra opcion)Aparecen arriba, dentro de la pantalla, y se mueven aleatoriamente
 //Si tocan el borde de la pantalla que no se sobrepase
 var posx = 500, posy = 200;
-function movimientoEnemigo(cantene){
+function movimientoEnemigo(tampantx, tampanty){
     var uno, dos,ex,ey;
     uno = Math.floor(Math.random()* 2);
     dos = Math.floor(Math.random()* 2);
 
     console.log(uno);
     console.log(dos);
-    if(uno == 0){
+    if(uno == 0 && dos == 0){
         ex = -10;
+        ey = -10;
+
+        setInterval(mov,20);
+
+        function mov(){
+            if((ex + ex) < tampantx){
+                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            }
+            if((ey + ey) < tampanty){
+                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            }
+        }
+
     }
-    if(uno == 1){
+    
+    if(uno == 1 && dos == 0){
         ex = 10;
+        ey = -10;
+
+        setInterval(mov,20);
+
+        function mov(){
+            if((ex + ex) > tampantx){
+                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            }
+            if((ey + ey) < tampanty){
+                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            }
+        }
     }
-    if(dos == 0){
-        ey = -10; 
-    }
-    if(dos == 1){
+
+    if(uno == 0 && dos == 1){
+        ex = -10;
         ey = 10;
+
+        setInterval(mov,20);
+
+        function mov(){
+            if((ex + ex) < tampantx){
+                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            }
+            if((ey + ey) > tampanty){
+                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            }
+        }
+    }
+
+
+    if(uno == 1 && dos == 1){
+        ex = 10;
+        ey = 10;
+        
+        setInterval(mov,20);
+
+        function mov(){
+            if((ex + ex) < tampantx){
+                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            }
+            if((ey + ey) < tampanty){
+                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            }
+        }
     }
     
     
+    /*
     function mov(){
             do{
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
-            }while((posy>=8) && (posy<=550));
+            }while((posy>=0) && (posy<=tampanty));
     
             do{
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
-            }while((posx<=1110) && (posx>=5));
+            }while((posx<=tampantx) && (posx>=0));
     
     } 
-    setInterval(mov,20);
+    setInterval(mov,20);*/
 }
 
 
