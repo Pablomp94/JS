@@ -1,5 +1,7 @@
 body{
     background-image: url(fondo.png);
+    height: 100% ;
+    width: 100%;
 }
 
 #nave{
@@ -12,9 +14,11 @@ body{
 
 
 #marciano{
-    width:130px;
-    height:140px;
-    position: relative;
+    width:150px;
+    height:160px;
+    position: absolute;
+    top: 400px;
+    left: 150px;
 }
 
 #disparo{

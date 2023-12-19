@@ -7,8 +7,10 @@ function juego(){
     /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
-    setInterval(movimientoEnemigo, 2000);
-    setInterval(detectarColisiones, 20);   
+    setInterval(movimientoEnemigo, 950);
+    setInterval(mov,20); 
+    setInterval(detectarColisiones, 20);  
+    
 }
 
 
@@ -39,8 +41,8 @@ x=650;
 y=500;
 
 //RECOJO LOS PARAMETROS DEL TAMAÑO DE LA PANTALLA DEL NAVEGADOR//
-let tampantx = screen.width - 150;
-let tampanty = screen.height - 350;
+let tampantx = lienzo.offsetwidth-nave.offsetwidth;
+let tampanty = lienzo.offsetheight-nave.offsetheight;
 
 
     /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
@@ -56,7 +58,7 @@ let tampanty = screen.height - 350;
             var imagen = document.createElement("img"); 
             imagen.setAttribute("src", "marciano.png");
             imagen.setAttribute("id", "disparo");  
-            var main = document.querySelector("body"); 
+            var main = document.getElementById("lienzo");
             main.appendChild(imagen);
             document.getElementById("disparo").style.top=ydis + "px";
             document.getElementById("disparo").style.left=xdis + "px";
@@ -109,7 +111,7 @@ function enemigos(cantene){
         imagen.setAttribute("src", "marciano.png");
         imagen.setAttribute("id", "marciano"); 
         imagen.setAttribute("class", "marciano");  
-        var main = document.querySelector("body"); 
+        var main = document.getElementById("lienzo");
         main.appendChild(imagen);    
     }
 }
@@ -119,61 +121,60 @@ function enemigos(cantene){
 //(provisional)Los enemigos aparecen de fuera de la pantalla en un punto y se van moviendo aleatoriamente hacia dentro de la pantalla.
 //(otra opcion)Aparecen arriba, dentro de la pantalla, y se mueven aleatoriamente
 //Si tocan el borde de la pantalla que no se sobrepase
-var posx = 500, posy = 200;
-function movimientoEnemigo(tampantx, tampanty){
-    var uno, dos,ex,ey;
+let posx = 400, posy = 100;
+let uno , dos;
+function movimientoEnemigo(){
+    
     uno = Math.floor(Math.random()* 2);
     dos = Math.floor(Math.random()* 2);
 
+}
+
+function mov(){
+
+    let ex,ey;
+
     console.log(uno);
     console.log(dos);
+
     if(uno == 0 && dos == 0){
         ex = -10;
         ey = -10;
 
-        setInterval(mov,20);
-
-        function mov(){
-            if((ex + ex) < tampantx){
-                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+       if((posx + ex) > 0){
+            document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+           }
+        if((posy + ey) > 0){
+            document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
-            if((ey + ey) < tampanty){
-                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
-            }
-        }
-
     }
+
+    
     
     if(uno == 1 && dos == 0){
         ex = 10;
         ey = -10;
 
-        setInterval(mov,20);
-
-        function mov(){
-            if((ex + ex) > tampantx){
+            if((posx + ex) <= tampantx){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((ey + ey) < tampanty){
+            if((posy + ey) > 0){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
-        }
+        
     }
 
     if(uno == 0 && dos == 1){
         ex = -10;
         ey = 10;
 
-        setInterval(mov,20);
-
-        function mov(){
-            if((ex + ex) < tampantx){
+            if((posx + ex) > 0){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((ey + ey) > tampanty){
+            if((posy + ey) > tampanty){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
-        }
+        
     }
 
 
@@ -181,17 +182,16 @@ function movimientoEnemigo(tampantx, tampanty){
         ex = 10;
         ey = 10;
         
-        setInterval(mov,20);
-
-        function mov(){
-            if((ex + ex) < tampantx){
+            if((posx + ex) < tampantx){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((ey + ey) < tampanty){
+            if((posy + ey) < tampanty){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
-        }
+        
     }
+}
+    
     
     
     /*
@@ -206,7 +206,7 @@ function movimientoEnemigo(tampantx, tampanty){
     
     } 
     setInterval(mov,20);*/
-}
+
 
 
 
@@ -221,8 +221,8 @@ function detectarColisiones(){
     let laNave = document.getElementById("nave").style;
     let naveX = parseInt(laNave.left);
     let naveY = parseInt(laNave.top);
-    console.log(naveX);
-    console.log(naveY);
+    //console.log(naveX);
+    //console.log(naveY);
 
     let enemigo = document.getElementById("marciano").style;
     let eneX = parseInt(enemigo.left);

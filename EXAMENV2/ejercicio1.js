@@ -1,82 +1,84 @@
-
 let fotos = {
-    "code": 0,
-    "result": "OK",
-    "autores": [ {"Nombre": "Fotos de Juan Pedro",
-              "BiografiaUrl": "http://juanpedro.es",
-              "Apodo": "elprofe",
-              "perros": [ "fotoPerros/perro1.jfif", "fotoPerros/perro2.jfif"] 
-              },
-              {"Nombre": "Fotos de Ester Colero",
-              "BiografiaUrl": "http://estercolero.es",
-              "Apodo": "olorosa",
-              "perros": [ "fotoPerros/perro3.jfif", "fotoPerros/perro4.jfif"] 
-             },
-             {"Nombre": "Fotos de Ana Conda",
-              "BiografiaUrl": "http://anaconda.es",
-              "Apodo": "culebra",
-              "perros": [ "fotoPerros/perro5.jfif", "fotoPerros/perro6.jfif","fotoPerros/perro7.jfif"] 
-              },
-              {"Nombre": "Fotos de Eva Liente",
-              "BiografiaUrl": "http://evaliente.es",
-              "Apodo": "valentina",
-              "perros": [ "fotoPerros/perro8.jfif"] 
-             }
-             ]               
-             }
+  code: 0,
+  result: "OK",
+  autores: [
+    {
+      Nombre: "Fotos de Juan Pedro",
+      BiografiaUrl: "http://juanpedro.es",
+      Apodo: "elprofe",
+      perros: ["fotoPerros/perro1.jfif", "fotoPerros/perro2.jfif"],
+    },
+    {
+      Nombre: "Fotos de Ester Colero",
+      BiografiaUrl: "http://estercolero.es",
+      Apodo: "olorosa",
+      perros: ["fotoPerros/perro3.jfif", "fotoPerros/perro4.jfif"],
+    },
+    {
+      Nombre: "Fotos de Ana Conda",
+      BiografiaUrl: "http://anaconda.es",
+      Apodo: "culebra",
+      perros: [
+        "fotoPerros/perro5.jfif",
+        "fotoPerros/perro6.jfif",
+        "fotoPerros/perro7.jfif",
+      ],
+    },
+    {
+      Nombre: "Fotos de Eva Liente",
+      BiografiaUrl: "http://evaliente.es",
+      Apodo: "valentina",
+      perros: ["fotoPerros/perro8.jfif"],
+    },
+  ],
+};
 
+//Si se pone el link fuera del body se tiene que poner window.addEventListener 
 
-
+//windows.addEventListener
 
 var div = document.createElement("div");
-var main = document.querySelector("body"); 
+var main = document.querySelector("body");
 main.appendChild(div);
 
+for (let miObj of fotos.autores) {
+  for (let perr of miObj.perros) {
+    var main = document.querySelector("body");
+    var ima = document.createElement("img");
+    ima.classList.add("imagen");
+    ima.setAttribute("src", perr);
+    div.appendChild(ima);
 
-for(let miObj of fotos.autores){
-    for(let perr of miObj.perros){
-        var main = document.querySelector("body");
-        var ima = document.createElement("img");
-        ima.classList.add("imagen");
-        ima.setAttribute("src", perr);
-        div.appendChild(ima);
-        
-        main.addEventListener("click", (ev) =>{
-            ev.stopPropagation();
-            advertencia();
-        }); 
+    main.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      advertencia();
+    });
 
-        ima.addEventListener("click", (ev) =>{
-            ev.stopPropagation();
-            verFoto();
-            
-        }); 
+    ima.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      verFoto();
+    });
 
-        function advertencia(){
-            alert("Haga click en cualquier foto");
-        }
-
-        function verFoto(){
-            let contenido = ima.getAttribute("src");
-            console.log(contenido);
-            let nuevimg = document.createElement("img");
-            nuevimg.setAttribute("src", contenido);
-            nuevimg.setAttribute("id", "nueva");
-            nuevimg.classList.add("ampliada");
-            main.appendChild(nuevimg);            
-            nuevimg.setAttribute("class", "ampliada");
-
-
-            function eliminar(){
-                document.getElementById("nueva").remove();
-            }
-
-            setInterval(eliminar(), 2000);
-        }   
-
-        
-  
+    function advertencia() {
+      alert("Haga click en cualquier foto");
     }
+
+    function verFoto() {
+      let contenido = ima.getAttribute("src");
+      console.log(contenido);
+      let nuevimg = document.createElement("img");
+      nuevimg.setAttribute("src", contenido);
+      nuevimg.setAttribute("id", "nueva");
+      nuevimg.classList.add("ampliada");
+      main.appendChild(nuevimg);
+      nuevimg.setAttribute("class", "ampliada");
+
+      function eliminar() {
+        document.getElementById("nueva").remove();
+      }
+      setInterval(eliminar(), 2000);
+    }
+  }
 }
 
 /*
@@ -110,4 +112,3 @@ for(let i=0; i<=imagenes.length; i++){
         i=0;
     }
 }*/
-
