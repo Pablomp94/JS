@@ -1,4 +1,8 @@
+
+
+
 function juego(){  
+    
     let nombre = prompt("Introduce tu nombre:");
     let cantene = prompt("Introduce la cantidad de enemigos");
     temporizador();
@@ -7,11 +11,20 @@ function juego(){
     /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
-    setInterval(movimientoEnemigo, 950);
-    setInterval(mov,20); 
+    
+     
     setInterval(detectarColisiones, 20);  
     
 }
+
+////////HERRAMIENTAS NECESARIAS////////////
+
+//RECOJO LOS PARAMETROS DEL TAMAÑO DE LA PANTALLA DEL NAVEGADOR//
+
+
+
+let tampantx = screen.width-120;
+let tampanty = screen.height-320;
 
 
 
@@ -22,8 +35,7 @@ function nave(){
     var imagen = document.createElement("img"); 
     imagen.setAttribute("src", "nave.png");
     imagen.setAttribute("id", "nave");  
-    var main = document.querySelector("body"); 
-    main.appendChild(imagen); 
+    document.body.appendChild(imagen); 
 }
 
 
@@ -33,17 +45,15 @@ let teclas = new Set();
 document.addEventListener("keydown", (event) => 
 teclas.add(event.key));
 document.addEventListener("keyup",evento => teclas.delete(evento.key))
-//LLamo a la funcion del movimiento de la nave y compruebe cada 20ms si se esta pulsando una tecla//
-setInterval(movimientoNave, 20);
+
+
 var x, y;
 let posnave = document.getElementById("nave");
 x=650;
 y=500;
 
-//RECOJO LOS PARAMETROS DEL TAMAÑO DE LA PANTALLA DEL NAVEGADOR//
-let tampantx = lienzo.offsetwidth-nave.offsetwidth;
-let tampanty = lienzo.offsetheight-nave.offsetheight;
 
+setInterval(movimientoNave, 20);
 
     /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
     tambien recoje el espacio para disparar*/
@@ -58,8 +68,7 @@ let tampanty = lienzo.offsetheight-nave.offsetheight;
             var imagen = document.createElement("img"); 
             imagen.setAttribute("src", "marciano.png");
             imagen.setAttribute("id", "disparo");  
-            var main = document.getElementById("lienzo");
-            main.appendChild(imagen);
+            document.body.appendChild(imagen);
             document.getElementById("disparo").style.top=ydis + "px";
             document.getElementById("disparo").style.left=xdis + "px";
             
@@ -76,19 +85,19 @@ let tampanty = lienzo.offsetheight-nave.offsetheight;
 
         /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
-        if(teclas.has("a") && (x>= 0)) {
+        if(teclas.has("a") && ((x - 15)>= 0)) {
             x = x-15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("d") && (x<=tampantx)) {
+        if(teclas.has("d") && (x+15 <= tampantx)) {
             x = x+15;
             document.getElementById("nave").style.left=x + "px";
         }
-        if(teclas.has("w") && (y>=0)) {
+        if(teclas.has("w") && ((y-15)>=0)) {
             y = y-15;
             document.getElementById("nave").style.top=y + "px";
         }
-        if(teclas.has("s") && (y<=tampanty)) {
+        if(teclas.has("s") && ((y+15)<=tampanty)) {
             y = y+15;
             document.getElementById("nave").style.top=y + "px";
         }
@@ -111,8 +120,7 @@ function enemigos(cantene){
         imagen.setAttribute("src", "marciano.png");
         imagen.setAttribute("id", "marciano"); 
         imagen.setAttribute("class", "marciano");  
-        var main = document.getElementById("lienzo");
-        main.appendChild(imagen);    
+        document.body.appendChild(imagen);    
     }
 }
 
@@ -129,23 +137,22 @@ function movimientoEnemigo(){
     dos = Math.floor(Math.random()* 2);
 
 }
-
+setInterval(movimientoEnemigo, 650);
+setInterval(mov,20);
 function mov(){
 
     let ex,ey;
 
-    console.log(uno);
-    console.log(dos);
 
     if(uno == 0 && dos == 0){
         ex = -10;
         ey = -10;
 
        if((posx + ex) > 0){
-            document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
+            document.getElementsByClassName("marciano")[0].style.left = (posx = (posx + ex)) + "px";
            }
         if((posy + ey) > 0){
-            document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
+            document.getElementsByClassName("marciano")[0].style.top=(posy = (posy + ey)) + "px";
             }
     }
 
@@ -194,19 +201,6 @@ function mov(){
     
     
     
-    /*
-    function mov(){
-            do{
-                document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
-            }while((posy>=0) && (posy<=tampanty));
-    
-            do{
-                document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
-            }while((posx<=tampantx) && (posx>=0));
-    
-    } 
-    setInterval(mov,20);*/
-
 
 
 
@@ -249,7 +243,7 @@ function temporizador(){
     let numero = 0;
     var cont = document.createElement("h1");
     cont.textContent=numero;
-    body.append(cont);
+    document.body.append(cont);
 
    
     //Subir el contador con un interval para que sume 1 por cada segundo, para saber cuanto tiempo has sobrevivido//

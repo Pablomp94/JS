@@ -4,6 +4,11 @@ body{
     width: 100%;
 }
 
+#lienzo{
+    height: 100vh;
+    width: 100vw;
+}
+
 #nave{
     width:150px;
     height:160px;
@@ -13,7 +18,7 @@ body{
 }
 
 
-#marciano{
+.marciano{
     width:150px;
     height:160px;
     position: absolute;
