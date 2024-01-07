@@ -49,7 +49,13 @@ for (let miObj of fotos.autores) {
     ima.setAttribute("src", perr);
     ima.addEventListener("click", (ev) => {
       ev.stopPropagation();
-      verFoto();
+      let contenido = ima.getAttribute("src");
+      let nuevimg = document.createElement("img");
+      nuevimg.setAttribute("src", contenido);
+      nuevimg.setAttribute("id", "nueva");
+      nuevimg.classList.add("ampliada");
+      main.appendChild(nuevimg);
+      nuevimg.setAttribute("class", "ampliada");
     });
     div.appendChild(ima);
 
