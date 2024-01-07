@@ -47,39 +47,40 @@ for (let miObj of fotos.autores) {
     var ima = document.createElement("img");
     ima.classList.add("imagen");
     ima.setAttribute("src", perr);
+    ima.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      verFoto();
+    });
     div.appendChild(ima);
 
     main.addEventListener("click", (ev) => {
       ev.stopPropagation();
       advertencia();
     });
-
-    ima.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      verFoto();
-    });
-
-    function advertencia() {
-      alert("Haga click en cualquier foto");
-    }
-
-    function verFoto() {
-      let contenido = ima.getAttribute("src");
-      console.log(contenido);
-      let nuevimg = document.createElement("img");
-      nuevimg.setAttribute("src", contenido);
-      nuevimg.setAttribute("id", "nueva");
-      nuevimg.classList.add("ampliada");
-      main.appendChild(nuevimg);
-      nuevimg.setAttribute("class", "ampliada");
-
-      function eliminar() {
-        document.getElementById("nueva").remove();
-      }
-      setInterval(eliminar(), 2000);
-    }
   }
 }
+function advertencia() {
+  alert("Haga click en cualquier foto");
+}
+function verFoto() {
+  let contenido = ima.getAttribute("src");
+  let nuevimg = document.createElement("img");
+  nuevimg.setAttribute("src", contenido);
+  nuevimg.setAttribute("id", "nueva");
+  nuevimg.classList.add("ampliada");
+  main.appendChild(nuevimg);
+  nuevimg.setAttribute("class", "ampliada");
+
+  /*function eliminar() {
+    document.getElementById("nueva").remove();
+  }
+  setTimeout(eliminar(), 2000);*/
+}
+
+
+
+
+
 
 /*
 

@@ -12,8 +12,8 @@ function juego(){
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
     
+    setInterval(detectarColisiones, 20); 
      
-    setInterval(detectarColisiones, 20);  
     
 }
 
@@ -23,7 +23,7 @@ function juego(){
 
 
 
-let tampantx = screen.width-120;
+let tampantx = screen.width-143;
 let tampanty = screen.height-320;
 
 
@@ -148,10 +148,10 @@ function mov(){
         ex = -10;
         ey = -10;
 
-       if((posx + ex) > 0){
+       if((posx + ex) >= 0){
             document.getElementsByClassName("marciano")[0].style.left = (posx = (posx + ex)) + "px";
            }
-        if((posy + ey) > 0){
+        if((posy + ey) >= 0){
             document.getElementsByClassName("marciano")[0].style.top=(posy = (posy + ey)) + "px";
             }
     }
@@ -165,7 +165,7 @@ function mov(){
             if((posx + ex) <= tampantx){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((posy + ey) > 0){
+            if((posy + ey) >= 0){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
         
@@ -175,10 +175,10 @@ function mov(){
         ex = -10;
         ey = 10;
 
-            if((posx + ex) > 0){
+            if((posx + ex) >= 0){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((posy + ey) > tampanty){
+            if((posy + ey) >= tampanty){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
         
@@ -189,10 +189,10 @@ function mov(){
         ex = 10;
         ey = 10;
         
-            if((posx + ex) < tampantx){
+            if((posx + ex) <= tampantx){
                 document.getElementById("marciano").style.left=(posx = (posx + ex)) + "px";
             }
-            if((posy + ey) < tampanty){
+            if((posy + ey) <= tampanty){
                 document.getElementById("marciano").style.top=(posy = (posy + ey)) + "px";
             }
         
@@ -213,26 +213,29 @@ function detectarColisiones(){
     de las colisiones */
     
     let laNave = document.getElementById("nave").style;
-    let naveX = parseInt(laNave.left);
-    let naveY = parseInt(laNave.top);
-    //console.log(naveX);
-    //console.log(naveY);
+
+    let naveX = (parseInt(laNave.left) - 5);
+    let naveY = (parseInt(laNave.top) - 5);
+   
 
     let enemigo = document.getElementById("marciano").style;
+    
     let eneX = parseInt(enemigo.left);
     let eneY = parseInt(enemigo.top);
 
+    
     /*Recojo dichos datos y hago las comprobaciones necesarias
-    para saber si se está colisionando o no. */
-    if( (naveX < eneX + enemigo.width) &&
-        (naveX + laNave.width > eneX) &&
-        (naveY < eneY + enemigo.height) &&
-        (laNave.height + naveY > eneY)){
-            return true,
+    para saber si se está colisionando o no.*/
+    
+    if( (naveX < (eneX + enemigo.width)) &&
+        ((laNave.left + laNave.width) > eneX) &&
+        (naveY < (eneY + enemigo.height)) &&
+        ((laNave.height + laNave.top) > eneY)){
             console.log("Colision");
         }
-        return false;
-        
+        else{
+            
+        }
 }
 
 /////////////////EXTRAS////////////////////////////
