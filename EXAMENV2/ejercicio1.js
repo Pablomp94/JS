@@ -33,9 +33,8 @@ let fotos = {
   ],
 };
 
-//Si se pone el link fuera del body se tiene que poner window.addEventListener 
+//Si se pone el link fuera del body se tiene que poner windows.addEventListener("load", ); 
 
-//windows.addEventListener
 
 var div = document.createElement("div");
 var main = document.querySelector("body");
@@ -60,6 +59,10 @@ function advertencia() {
   alert("Haga click en cualquier foto");
 }
 
+function eliminar(){
+  document.getElementById("nueva").remove();
+}
+
 
 function verFoto(ev){
   ev.stopPropagation();
@@ -71,52 +74,7 @@ function verFoto(ev){
   nuevimg.classList.add("ampliada");
   main.appendChild(nuevimg);
   nuevimg.setAttribute("class", "ampliada");
-
-  /*function eliminar() {
-    document.getElementById("nueva").remove();
-  }
-  setTimeout(eliminar(), 2000);*/
+  setTimeout(eliminar, 2000);
 }
 
 
-
-
-
-
-/*
- let contenido = ima.getAttribute("src");
-  let nuevimg = document.createElement("img");
-  nuevimg.setAttribute("src", contenido);
-  nuevimg.setAttribute("id", "nueva");
-  nuevimg.classList.add("ampliada");
-  main.appendChild(nuevimg);
-  nuevimg.setAttribute("class", "ampliada");
-
-
-princ.addEventListener("click", advertencia)
-
-function advertencia(){
-    alert("Haga click en cualquier foto");
-}
-
-for(let i=0; i<=imagenes.length; i++){
-    
-    imagenes[i].addEventListener("click", verFoto);
-
-    function verFoto(){
-        let contenido = imagenes[i].getAttribute("src");
-        nuevimg.setAttribute("src", contenido);
-        body.appendlastChild(nuevimg);
-
-        setTimeout(ampliar, 2000);
-
-        function ampliar(){
-            nuevimg.setAttribute("class", "ampliada");
-        }
-    
-        body.removeChild(nuevimg);
-    }
-    if(i>=imagenes.length){
-        i=0;
-    }
-}*/
