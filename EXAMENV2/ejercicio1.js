@@ -47,16 +47,7 @@ for (let miObj of fotos.autores) {
     var ima = document.createElement("img");
     ima.classList.add("imagen");
     ima.setAttribute("src", perr);
-    ima.addEventListener("click", (ev) => {
-      ev.stopPropagation();
-      let contenido = ima.getAttribute("src");
-      let nuevimg = document.createElement("img");
-      nuevimg.setAttribute("src", contenido);
-      nuevimg.setAttribute("id", "nueva");
-      nuevimg.classList.add("ampliada");
-      main.appendChild(nuevimg);
-      nuevimg.setAttribute("class", "ampliada");
-    });
+    ima.addEventListener("click", verFoto);
     div.appendChild(ima);
 
     main.addEventListener("click", (ev) => {
@@ -68,8 +59,12 @@ for (let miObj of fotos.autores) {
 function advertencia() {
   alert("Haga click en cualquier foto");
 }
-function verFoto() {
-  let contenido = ima.getAttribute("src");
+
+
+function verFoto(ev){
+  ev.stopPropagation();
+  let nodo = ev.target;
+  let contenido = nodo.getAttribute("src");
   let nuevimg = document.createElement("img");
   nuevimg.setAttribute("src", contenido);
   nuevimg.setAttribute("id", "nueva");
@@ -89,7 +84,13 @@ function verFoto() {
 
 
 /*
-
+ let contenido = ima.getAttribute("src");
+  let nuevimg = document.createElement("img");
+  nuevimg.setAttribute("src", contenido);
+  nuevimg.setAttribute("id", "nueva");
+  nuevimg.classList.add("ampliada");
+  main.appendChild(nuevimg);
+  nuevimg.setAttribute("class", "ampliada");
 
 
 princ.addEventListener("click", advertencia)

@@ -1,0 +1,114 @@
+*{
+   margin: 0;
+   padding: 0;
+}
+
+/* Cabecera y pie */
+#cabecera, #pie {
+	width:720px;
+	height:50px;
+	border:4px dotted gold;
+	margin:10px;
+}
+
+span {
+	float:left;
+	width: 355px;
+	text-align:center;
+	font-size:2em;
+	padding-top:10px;
+	color:blue;
+
+}
+.contenedor {
+	width:345px;
+	height:345px;
+	border:4px dotted gold;
+	margin:10px;
+	float:left;
+	position:relative;
+}
+
+.cubo {
+	width: 75px;
+	height: 75px;
+	border:8px double white;
+	border-radius: 10px;
+}
+
+.cubo h1 {
+	position: relative;
+	top:20px;
+	left:30px;
+	font-size: 2em;
+	color: white;
+
+}
+
+.cubo:hover {
+	background:grey;
+	cursor:pointer;	
+}
+
+.rojo {background-color: red;}
+.amarillo {background-color: yellow;}
+.verde {background-color: green;}
+.azul {background-color: blue;}
+
+/*Posicionamos los cubos del contenedor 1*/
+#izquierdo .cubo {
+	position:relative;
+}
+
+#izquierdo .amarillo {
+	left: 83px;
+	top:-7px;
+}
+
+#izquierdo .verde {
+	left: 166px;
+	top:-15px;
+}
+
+#izquierdo .azul {
+	left: 249px;
+	top:-23px;
+}
+
+/*Posicionamos los cubos del contenedor 2*/
+
+#derecho .cubo {
+	position:absolute;
+}
+
+#derecho .amarillo {
+	left: 83px;
+	top:83px;
+}
+
+#derecho .verde {
+	left:166px;
+	top:0;
+}
+
+#derecho .azul {
+	left: 249px;
+	top:83px;
+}
+
+/* Pie */
+#pie {
+	clear:both;
+}
+
+#pie #autor::after {
+	content: "Jana"
+}
+
+#pie #autor {
+	color:blue;
+	font-size:2em;
+	padding-top:10px;
+	text-align:center;	
+}
+
