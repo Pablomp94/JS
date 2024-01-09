@@ -1,11 +1,11 @@
 let der = document.getElementById("derecho");
 let cubos = der.getElementsByTagName("DIV");
 for(let cubo of cubos){
-    cubo.addEventListener("click", mueveme);
+    cubo.addEventListener("click", muevemeIzq);
     cubo.addEventListener("contextmenu", menu);
 }
 
-function mueveme(ev){
+function muevemeIzq(ev){
     nodo = ev.target;
     if(nodo.nodeName=="H1"){
         nodo=nodo.parentNode;
@@ -14,23 +14,34 @@ function mueveme(ev){
     if(nodo.previousElementSibling == null){
         ultnodo = der.lastElementChild;
 
-        xprim = nodo.offsetLeft;
-        yprim = nodo.offsetTop;
-        xseg = ultnodo.offsetLeft;
-        yseg = ultnodo.offsetTop;
+        let xprim = nodo.offsetLeft;
+        let yprim = nodo.offsetTop;
+        let xseg = ultnodo.offsetLeft;
+        let yseg = ultnodo.offsetTop;
 
         nodo.style.left=xseg+"px";
         nodo.style.top=yseg+"px";
 
         ultnodo.style.left=xprim+"px";
         ultnodo.style.top=yprim+"px";
+
+
+        //Para intercambiar en el DOM hay que quitar el primero y ponerlo al final de los hijos y el ultimo al primero
+        signodo = nodo.nextSibling;
+        padre = nodo.parentNode;
+        ultimo = nodo.parentNode.lastElementChild;
+        uno = padre.removeChild(nodo);
+        padre.insertBefore(uno, ultimo);
+        dos = padre.removeChild(ultimo);
+        padre.insertBefore(dos, nodo.nextSibling);
     }else{
-        nodoPrev = nodo.previousElementSibling;
+
+        nodoPrev = nodo.previousElementSibling; 
         
-        xprim = nodo.offsetLeft;
-        yprim = nodo.offsetTop;
-        xseg = nodoPrev.offsetLeft;
-        yseg = nodoPrev.offsetTop;
+        let xprim = nodo.offsetLeft;
+        let yprim = nodo.offsetTop;
+        let xseg = nodoPrev.offsetLeft;
+        let yseg = nodoPrev.offsetTop;
 
         nodo.style.left=xseg+"px";
         nodo.style.top=yseg+"px";
@@ -39,7 +50,12 @@ function mueveme(ev){
         nodoPrev.style.top=yprim+"px";
 
 
-        //CAMBIAR EL ORDEN DEL HTML DE LOS H1//
+        //Para intercambiar en el DOM hay que quitar y ponerlo antes del hermano del nodoPrevio
+        padre = nodo.parentNode;
+        contenido = padre.removeChild(nodo);
+        padre.insertBefore(contenido, nodoPrev);
+
+
     }
 
 }

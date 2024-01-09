@@ -40,6 +40,8 @@ var div = document.createElement("div");
 var main = document.querySelector("body");
 main.appendChild(div);
 
+window.onclick = advertencia;
+
 for (let miObj of fotos.autores) {
   for (let perr of miObj.perros) {
     var main = document.querySelector("body");
@@ -47,12 +49,14 @@ for (let miObj of fotos.autores) {
     ima.classList.add("imagen");
     ima.setAttribute("src", perr);
     ima.addEventListener("click", verFoto);
-    div.appendChild(ima);
-
-    main.addEventListener("click", (ev) => {
+    ima.addEventListener("click", function(ev){
       ev.stopPropagation();
-      advertencia();
     });
+
+    div.appendChild(ima); 
+    ima.addEventListener("contextmenu", function(ev){
+      ev.preventDefault();
+    }); 
   }
 }
 function advertencia() {
@@ -65,7 +69,6 @@ function eliminar(){
 
 
 function verFoto(ev){
-  ev.stopPropagation();
   let nodo = ev.target;
   let contenido = nodo.getAttribute("src");
   let nuevimg = document.createElement("img");
@@ -73,7 +76,17 @@ function verFoto(ev){
   nuevimg.setAttribute("id", "nueva");
   nuevimg.classList.add("ampliada");
   main.appendChild(nuevimg);
-  nuevimg.setAttribute("class", "ampliada");
+  
+  nuevimg.addEventListener("click", function(ev){
+    ev.stopPropagation();
+  });
+
+  nuevimg.addEventListener("contextmenu", function(ev){
+    ev.preventDefault();
+  });
+
+  nuevimg.addEventListener("click", eliminar);
+
   setTimeout(eliminar, 2000);
 }
 
