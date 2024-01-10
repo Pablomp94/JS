@@ -3,6 +3,12 @@
    padding: 0;
 }
 
+#left:hover, #right:hover{
+	cursor: pointer;
+	background-color: lightblue;
+}
+
+
 /* Cabecera y pie */
 #cabecera, #pie {
 	width:720px;

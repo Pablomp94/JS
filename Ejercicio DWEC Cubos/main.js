@@ -1,4 +1,5 @@
-let der = document.getElementById("derecho");
+window.addEventListener("load", function(){
+    let der = document.getElementById("derecho");
 let cubos = der.getElementsByTagName("DIV");
 for(let cubo of cubos){
     cubo.addEventListener("click", muevemeIzq);
@@ -60,9 +61,24 @@ function muevemeIzq(ev){
 
 }
 
+
 /*Crear un menu al darle click derecho encima de uno de los divs de dentro del div derecho,
  dentro de este menu iran 2 opciones izquierda y derecha eligiendo asi hacia donde se movera el div*/
 
 function menu(ev){
     ev.preventDefault();
-}
+    dial=document.getElementById("miDi");
+    
+    dial.style.position="absolute";
+    dial.style.margin=0;
+    dial.style.left=ev.pageX + "px";
+    dial.style.top=ev.pageY + "px";
+
+    dial.setAttribute("open", "open");
+
+    //Hay que quitar el evento para que no se apile//
+    //removeEventListener("click", muevemeIzq);
+    document.getElementById("left").addEventListener("click", muevemeIzq.bind(ev.target, event));
+} 
+})
+
