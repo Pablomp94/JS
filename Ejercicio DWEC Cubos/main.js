@@ -134,8 +134,8 @@ function menu(ev){
 
     //Hay que quitar el evento para que no se apile//
     //removeEventListener("click", muevemeIzq);
-    document.getElementById("left").addEventListener("click", muevemeIzq.bind(ev.target, event));
-    document.getElementById("right").addEventListener("click", muevemeDere.bind(ev.target, event));
+    document.getElementById("left").addEventListener("click", muevemeIzq(ev.target, event));
+    document.getElementById("right").addEventListener("click", muevemeDere(ev.target, event));
 } 
 })
 

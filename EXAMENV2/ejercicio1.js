@@ -36,16 +36,15 @@ let fotos = {
 //Si se pone el link fuera del body se tiene que poner windows.addEventListener("load", ); 
 
 
-var div = document.createElement("div");
-var main = document.querySelector("body");
+let div = document.createElement("div");
+let main = document.querySelector("body");
 main.appendChild(div);
 
 window.onclick = advertencia;
 
 for (let miObj of fotos.autores) {
   for (let perr of miObj.perros) {
-    var main = document.querySelector("body");
-    var ima = document.createElement("img");
+    let ima = document.createElement("img");
     ima.classList.add("imagen");
     ima.setAttribute("src", perr);
     ima.addEventListener("click", verFoto);
@@ -65,8 +64,14 @@ function advertencia() {
 
 function eliminar(){
   document.getElementById("nueva").remove();
+  clearInterval(tiempo);
 }
 
+window.addEventListener("contextmenu", function(ev){
+  ev.preventDefault();
+});
+
+let tiempo; //var para parar el intervalo en caaso de cerrar yo entes la imagen
 
 function verFoto(ev){
   let nodo = ev.target;
@@ -87,7 +92,7 @@ function verFoto(ev){
 
   nuevimg.addEventListener("click", eliminar);
 
-  setTimeout(eliminar, 2000);
+  tiempo = setTimeout(eliminar, 2000);
 }
 
 
