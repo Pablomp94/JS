@@ -67,7 +67,7 @@ function eliminar(){
   clearInterval(tiempo);
 }
 
-window.addEventListener("contextmenu", function(ev){
+window  .addEventListener("contextmenu", function(ev){
   ev.preventDefault();
 });
 
