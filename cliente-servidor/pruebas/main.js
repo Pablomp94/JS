@@ -1,6 +1,8 @@
 window.addEventListener("load", function(){
 
-    fetch("https://jsonplaceholder.typicode.com/todos")
+  let main = document.querySelector("body");
+
+  fetch("https://jsonplaceholder.typicode.com/todos")
   .then((response) => {
     if (response.ok) {
       return response.json();
@@ -10,7 +12,7 @@ window.addEventListener("load", function(){
   })
   .then((json) => {
 
-    let main = document.querySelector("body");
+    
 
     let tab = document.createElement("table");
     main.appendChild(tab);
@@ -38,7 +40,9 @@ window.addEventListener("load", function(){
         completado.textContent = miObj["completed"];
         fila.appendChild(completado);
     }
+  }).catch(error => {
+    main.textContent="Error: " + error;
   });
 
-})
+});
 
