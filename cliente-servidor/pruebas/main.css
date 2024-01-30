@@ -1,0 +1,35 @@
+table, tr, th{
+    border: solid black 2px;
+    border-collapse: collapse;
+}
+
+
+table{
+    width: 100%;
+}
+
+tr:hover th{
+    background-color: lightblue;
+}
+
+th{
+    background-color: pink;
+}
+
+body{
+    background-color: rgb(204, 2, 255);
+}
+
+button{
+    margin-left: 25%;
+    margin-bottom: 20px;
+    width: 50%;
+    color: white;
+    background-image:linear-gradient(rgb(204, 0, 255), rgb(161, 65, 65)) ;
+    padding: 30px;
+}
+
+button:hover{
+    background-image:linear-gradient(rgb(255, 0, 0), white);
+    cursor: pointer;
+}

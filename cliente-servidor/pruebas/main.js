@@ -12,12 +12,35 @@ window.addEventListener("load", function(){
   })
   .then((json) => {
 
-    
+    let boton = document.createElement("button");
+    boton.textContent = "Buscar por Id";
+    document.body.append(boton);
+
+    boton.addEventListener("click", buscarId);
 
     let tab = document.createElement("table");
     main.appendChild(tab);
     
+        let princ = document.createElement("tr");
+        tab.appendChild(princ);
+        
+        let usuario = document.createElement("th");
+        usuario.textContent = "Usuario";
+        princ.appendChild(usuario);
+        
+        let id = document.createElement("th");
+        id.textContent = "ID";
+        princ.appendChild(id);
+
+        let nombre = document.createElement("th");
+        nombre.textContent = "Titulo";
+        princ.appendChild(nombre);
+
+        let comp = document.createElement("th");
+        comp.textContent = "Completado";
+        princ.appendChild(comp);
     
+    let i = 1;
 
     for(let miObj of json) {
         
@@ -30,6 +53,7 @@ window.addEventListener("load", function(){
         
         let identificador = document.createElement("th");
         identificador.textContent = miObj["id"];
+        identificador.setAttribute("id", i);
         fila.appendChild(identificador);
 
         let titulo = document.createElement("th");
@@ -39,7 +63,16 @@ window.addEventListener("load", function(){
         let completado = document.createElement("th");
         completado.textContent = miObj["completed"];
         fila.appendChild(completado);
+        
+        i++;
     }
+
+    function buscarId(){
+      let ident = prompt("Introduce el id a buscar");
+      let encontrado = document.getElementById(ident);
+      encontrado.style.backgroundcolor=="orange";
+    }
+
   }).catch(error => {
     main.textContent="Error: " + error;
   });

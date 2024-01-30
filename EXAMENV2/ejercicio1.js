@@ -63,15 +63,19 @@ function advertencia() {
 }
 
 function eliminar(){
-  document.getElementById("nueva").remove();
-  clearInterval(tiempo);
+  
+  try{
+    document.getElementById("nueva").remove();
+  }catch{
+    console.log("La imagen ya se eliminó")
+  }
 }
 
 window  .addEventListener("contextmenu", function(ev){
   ev.preventDefault();
 });
 
-let tiempo; //var para parar el intervalo en caaso de cerrar yo entes la imagen
+
 
 function verFoto(ev){
   let nodo = ev.target;
@@ -92,7 +96,9 @@ function verFoto(ev){
 
   nuevimg.addEventListener("click", eliminar);
 
-  tiempo = setTimeout(eliminar, 2000);
+  setTimeout(eliminar, 2000);
+ 
+   
 }
 
 

@@ -60,6 +60,7 @@ setInterval(movimientoNave, 20);
     function movimientoNave(){
         /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
         en la posicion superior centrar de la nave*/ 
+        
         if(teclas.has(" ")) {
 
             xdis = x+50;
@@ -67,7 +68,8 @@ setInterval(movimientoNave, 20);
 
             var imagen = document.createElement("img"); 
             imagen.setAttribute("src", "marciano.png");
-            imagen.setAttribute("id", "disparo");  
+            imagen.setAttribute("id", "disparo");
+            imagen.setAttribute("class", "disparo");  
             document.body.appendChild(imagen);
             document.getElementById("disparo").style.top=ydis + "px";
             document.getElementById("disparo").style.left=xdis + "px";
