@@ -44,7 +44,7 @@ let teclas = new Set();
 //Creo el evento//
 document.addEventListener("keydown", (event) => 
 teclas.add(event.key));
-document.addEventListener("keyup",evento => teclas.delete(evento.key))
+document.addEventListener("keyup",evento => teclas.delete(evento.key));
 
 
 var x, y;
@@ -244,7 +244,7 @@ function detectarColisiones(){
 reloj del tiempo que se esta jugando*/
 function temporizador(){
     let numero = 0;
-    var cont = document.createElement("h1");
+    let cont = document.createElement("h1");
     cont.textContent=numero;
     document.body.append(cont);
 
