@@ -65,7 +65,20 @@ function movimientoNave() {
     /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
             se realize cada 20ms, haciendo que cada ese tiempo se suba hasta llegar arriba*/
     setInterval(movimientoMisil, 20);
+    setTimeout(2000);
   }
+
+  /**let canShoot = true
+
+const handleShoot = (cooldown: number) => {
+  if (!canShoot) return
+  else {
+    canShoot = false
+    setTimeout(() => { canShoot = true }, cooldown)
+  }
+
+  // ... Resto de la función
+} */
 
   /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
