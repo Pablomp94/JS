@@ -1,6 +1,10 @@
+
+let cantene;
+
 function juego() {
   let nombre = prompt("Introduce tu nombre:");
-  let cantene = prompt("Introduce la cantidad de enemigos");
+  let canten = prompt("Introduce la cantidad de enemigos");
+  cantene = parseInt(canten);
   temporizador();
   enemigos(cantene);
   nave();
@@ -44,42 +48,6 @@ setInterval(movimientoNave, 20);
 /*Funcion del movimiento de la nave, recoje las teclas wasd y con una comprobacion "if" miro que tecla se ha pulsado,
     tambien recoje el espacio para disparar*/
 function movimientoNave() {
-  /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
-        en la posicion superior centrar de la nave*/
-  if (teclas.has(" ")) {
-    xdis = x + 50;
-    ydis = y - 20;
-
-    var imagen = document.createElement("img");
-    imagen.setAttribute("src", "marciano.png");
-    imagen.setAttribute("id", "disparo");
-    document.body.appendChild(imagen);
-    document.getElementById("disparo").style.top = ydis + "px";
-    document.getElementById("disparo").style.left = xdis + "px";
-
-    /*Esta funcion coje el misil y le resta a la posicion vertical, lo que hace que suba un poco*/
-
-    function movimientoMisil() {
-      document.getElementById("disparo").style.top = (ydis = ydis - 5) + "px";
-    }
-    /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
-            se realize cada 20ms, haciendo que cada ese tiempo se suba hasta llegar arriba*/
-    setInterval(movimientoMisil, 20);
-    setTimeout(2000);
-  }
-
-  /**let canShoot = true
-
-const handleShoot = (cooldown: number) => {
-  if (!canShoot) return
-  else {
-    canShoot = false
-    setTimeout(() => { canShoot = true }, cooldown)
-  }
-
-  // ... Resto de la función
-} */
-
   /*Aqui es donde recojo la tecla pulsada y si coincide le suma o le resta a la posicion x o y de la nave*/
 
   if (teclas.has("a") && x - 15 >= 0) {
@@ -100,10 +68,69 @@ const handleShoot = (cooldown: number) => {
   }
 }
 
+
+
+setInterval(disparoMisil, 20);
+let canShoot = true;
+function disparoMisil(){
+    /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
+        en la posicion superior centrar de la nave*/
+        if (teclas.has(" ")) {
+          xdis = x + 50;
+          ydis = y - 20;
+      
+        // ... Resto de la función
+      
+        if(canShoot == true){
+          var imagen = document.createElement("img");
+          imagen.setAttribute("src", "marciano.png");
+          imagen.setAttribute("id", "disparo");
+          document.body.appendChild(imagen);
+          document.getElementById("disparo").style.top = ydis + "px";
+          document.getElementById("disparo").style.left = xdis + "px";
+        }else{
+          console.log("Recargando");
+        }
+
+        canShoot = false;
+        setTimeout(canShoot = true, 2000);
+        
+          /*Esta funcion coje el misil y le resta a la posicion vertical, lo que hace que suba un poco*/
+      
+          function movimientoMisil() {
+            document.getElementById("disparo").style.top = (ydis = ydis - 5) + "px";
+          }
+          /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
+                  se realize cada 20ms, haciendo que cada ese tiempo se suba hasta llegar arriba*/
+          do{
+          setInterval(movimientoMisil, 20);
+          }while(document.getElementById("disparo").style.top <= 0);
+          setTimeout(2000);
+        }
+      
+        /**let canShoot = true
+      
+      const handleShoot = (cooldown: number) => {
+        if (!canShoot) return
+        else {
+          canShoot = false
+          setTimeout(() => { canShoot = true }, cooldown)
+        }
+      
+        // ... Resto de la función
+      } */
+}
+
+
+
+
+
+
+
 /////////////////ENEMIGO////////////////////////////
 
 /*Creo en tiempo de ejecucion la cantidad de enemigos que he pedido antes*/
-function enemigos(cantene) {
+function enemigos() {
   for (i = 0; i < cantene; i++) {
     var imagen = document.createElement("img");
     imagen.setAttribute("src", "marciano.png");
@@ -117,16 +144,16 @@ function enemigos(cantene) {
 //(provisional)Los enemigos aparecen de fuera de la pantalla en un punto y se van moviendo aleatoriamente hacia dentro de la pantalla.
 //(otra opcion)Aparecen arriba, dentro de la pantalla, y se mueven aleatoriamente
 //Si tocan el borde de la pantalla que no se sobrepase
-let posx = 400;
-let posy = 100;
+//let posx; = 400;
+//let posy; = 100;
 let uno, dos;
 function movimientoEnemigo() {
-  uno = Math.floor(Math.random() * 2);
-  dos = Math.floor(Math.random() * 2);
+   uno = Math.floor(Math.random() * 2);
+   dos = Math.floor(Math.random() * 2);
 }
 setInterval(movimientoEnemigo, 650);
 setInterval(mov, 20);
-function mov(cantene) {
+function mov() {
   let ex, ey;
 
   if (uno == 0 && dos == 0) {
@@ -135,17 +162,15 @@ function mov(cantene) {
 
     
       for (let i = 0; i < cantene; i++) {
+        
+          posx = document.getElementsByClassName("marciano")[i].style.left;
+      
         if (posx + ex >= 0) {
-          document.getElementsByClassName("marciano")[i].style.left =
-            (posx = posx + ex) + "px";
+          document.getElementsByClassName("marciano")[i].style.top =(posx + ex) + "px";
         }
-      }
-    
-    
-      for (let i = 0; i < cantene; i++) {
-        if (posx + ex >= 0) {
-          document.getElementsByClassName("marciano")[i].style.top =
-            (posy = posy + ey) + "px";
+        posy = document.getElementsByClassName("marciano")[i].style.top;
+        if (posy + ey >= 0) {
+          document.getElementsByClassName("marciano")[i].style.top =(posy + ey) + "px";
         }
       }
     }
@@ -155,15 +180,16 @@ function mov(cantene) {
     ex = 10;
     ey = -10;
 
-    for (let i = 0; i <= cantene; i++) {
+    for (let i = 0; i < cantene; i++) {
+      posx = document.getElementsByClassName("marciano")[i].style.left;
       if (posx + ex <= tampantx) {
-        document.getElementsByClassName("marciano")[i].style.left = (posx = posx + ex) + "px";
+        //document.getElementsByClassName("marciano")[i].style.left = (posx = posx + ex) + "px";
+        (posx = posx + ex) + "px";
       }
-    }
-
-    for(let i = 0; i<= cantene; i++){
+      posy = document.getElementsByClassName("marciano")[i].style.top;
         if (posy + ey >= 0) {
-            document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
+            //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
+            (posy = posy + ey) + "px";
         }
     }
         
@@ -173,12 +199,17 @@ function mov(cantene) {
     ex = -10;
     ey = 10;
 
+    for(i = 0; i< cantene; i++){
+      posx = document.getElementsByClassName("marciano")[i].style.left;
     if (posx + ex >= 0) {
-      document.getElementById("marciano").style.left =
+      //document.getElementsByClassName("marciano")[i].style.left =
         (posx = posx + ex) + "px";
     }
+    posy = document.getElementsByClassName("marciano")[i].style.top;
     if (posy + ey >= tampanty) {
-      document.getElementById("marciano").style.top = (posy = posy + ey) + "px";
+      //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
+      (posy = posy + ey) + "px";
+    }
     }
   }
 
@@ -186,12 +217,18 @@ function mov(cantene) {
     ex = 10;
     ey = 10;
 
+    for(i = 0; i< cantene; i++){
+      posx = document.getElementsByClassName("marciano")[i].style.left;
     if (posx + ex <= tampantx) {
-      document.getElementById("marciano").style.left =
+      
+      //document.getElementsByClassName("marciano")[i].style.left =
         (posx = posx + ex) + "px";
     }
+    posy = document.getElementsByClassName("marciano")[i].style.top;
     if (posy + ey <= tampanty) {
-      document.getElementById("marciano").style.top = (posy = posy + ey) + "px";
+      //document.getElementsByClassName("marciano")[i].style.top = 
+      (posy = posy + ey) + "px";
+    }
     }
   }
 }
