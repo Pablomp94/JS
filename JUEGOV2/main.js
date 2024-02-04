@@ -168,7 +168,7 @@ function mov() {
         if (posx + ex >= 0) {
           document.getElementsByClassName("marciano")[i].style.top =(posx + ex) + "px";
         }
-        posy = document.getElementsByClassName("marciano")[i].style.top;
+          posy = document.getElementsByClassName("marciano")[i].style.top;
         if (posy + ey >= 0) {
           document.getElementsByClassName("marciano")[i].style.top =(posy + ey) + "px";
         }
