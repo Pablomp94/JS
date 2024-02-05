@@ -1,4 +1,3 @@
-
 let cantene;
 
 function juego() {
@@ -38,7 +37,7 @@ let teclas = new Set();
 document.addEventListener("keydown", (event) => teclas.add(event.key));
 document.addEventListener("keyup", (evento) => teclas.delete(evento.key));
 
-var x, y;
+let x, y;
 let posnave = document.getElementById("nave");
 x = 650;
 y = 500;
@@ -68,47 +67,58 @@ function movimientoNave() {
   }
 }
 
-
-
+let n = 0;
 setInterval(disparoMisil, 20);
-let canShoot = true;
-function disparoMisil(){
-    /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
-        en la posicion superior centrar de la nave*/
-        if (teclas.has(" ")) {
-          xdis = x + 50;
-          ydis = y - 20;
-      
-        // ... Resto de la función
-      
-        if(canShoot == true){
-          var imagen = document.createElement("img");
-          imagen.setAttribute("src", "marciano.png");
-          imagen.setAttribute("id", "disparo");
-          document.body.appendChild(imagen);
-          document.getElementById("disparo").style.top = ydis + "px";
-          document.getElementById("disparo").style.left = xdis + "px";
-        }else{
-          console.log("Recargando");
-        }
 
-        canShoot = false;
-        setTimeout(canShoot = true, 2000);
-        
-          /*Esta funcion coje el misil y le resta a la posicion vertical, lo que hace que suba un poco*/
+function disparoMisil() {
+  /*Recoje la pulsacion del espacio y crea en tiempo de ejecucion la imagen del proyectil
+        en la posicion superior centrar de la nave*/
+
+  if (obtenerCatacteristica(document.getElementById("disparo"), "top") < 0) {
+    n = 0;
+  } else {
+    n = 1;
+  }
+
+  if (teclas.has(" ")) {
+    let algo;
+    let misil = document.getElementById("disparo");
+    xdis = x + 50;
+    ydis = y - 20;
+
+    // ... Resto de la función
+
+    if (n == 0) {
+      misil.style.top = ydis + "px";
+      misil.style.left = xdis + "px";
+      misil.style.visibility = "visible";
+      misil.setAttribute("data-y",ydis);
+
+      algo = setInterval(()=>movimientoMisil(misil), 20);
+    }
+
+    /*Esta funcion coje el misil y le resta a la posicion vertical, lo que hace que suba un poco*/
+
+    function movimientoMisil(miMisil) {
+      let posicionY = Number.parseInt(miMisil.dataset.y);
+      posicionY -= 15;
+      misil.style.top = posicionY + "px";
       
-          function movimientoMisil() {
-            document.getElementById("disparo").style.top = (ydis = ydis - 5) + "px";
-          }
-          /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
+      miMisil.setAttribute("data-y",posicionY)
+
+      if (obtenerCatacteristica(misil, "top") < 0) {
+        misil.style.visibility = "hidden";
+        clearInterval(algo);
+      }
+    }
+    /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
                   se realize cada 20ms, haciendo que cada ese tiempo se suba hasta llegar arriba*/
-          do{
-          setInterval(movimientoMisil, 20);
-          }while(document.getElementById("disparo").style.top <= 0);
-          setTimeout(2000);
-        }
-      
-        /**let canShoot = true
+    /**do {
+      setInterval(movimientoMisil, 100);
+    } while (document.getElementById("disparo").style.top <= 0);**/
+  }
+
+  /**let canShoot = true
       
       const handleShoot = (cooldown: number) => {
         if (!canShoot) return
@@ -121,12 +131,6 @@ function disparoMisil(){
       } */
 }
 
-
-
-
-
-
-
 /////////////////ENEMIGO////////////////////////////
 
 /*Creo en tiempo de ejecucion la cantidad de enemigos que he pedido antes*/
@@ -137,6 +141,12 @@ function enemigos() {
     imagen.setAttribute("id", "marciano");
     imagen.setAttribute("class", "marciano");
     document.body.appendChild(imagen);
+    //Crear dos numeros random para que aparezcan en distintos sitios
+    let posuno = Math.floor(Math.random() * tampantx);
+    let posdos = Math.floor(Math.random() * tampanty);
+
+    imagen.style.left = posuno + "px";
+    imagen.style.top = posdos + "px";
   }
 }
 
@@ -148,8 +158,8 @@ function enemigos() {
 //let posy; = 100;
 let uno, dos;
 function movimientoEnemigo() {
-   uno = Math.floor(Math.random() * 2);
-   dos = Math.floor(Math.random() * 2);
+  uno = Math.floor(Math.random() * 2);
+  dos = Math.floor(Math.random() * 2);
 }
 setInterval(movimientoEnemigo, 650);
 setInterval(mov, 20);
@@ -160,21 +170,20 @@ function mov() {
     ex = -10;
     ey = -10;
 
-    
-      for (let i = 0; i < cantene; i++) {
-        
-          posx = document.getElementsByClassName("marciano")[i].style.left;
-      
-        if (posx + ex >= 0) {
-          document.getElementsByClassName("marciano")[i].style.top =(posx + ex) + "px";
-        }
-          posy = document.getElementsByClassName("marciano")[i].style.top;
-        if (posy + ey >= 0) {
-          document.getElementsByClassName("marciano")[i].style.top =(posy + ey) + "px";
-        }
+    for (let i = 0; i < cantene; i++) {
+      //posx = document.getElementsByClassName("marciano")[i].style.left;
+      let posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
+      let posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
+
+      if (posx + ex > 0) {
+        document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
+      }
+       
+      if (posy + ey > 0) {
+        document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
       }
     }
-  
+  }
 
   if (uno == 1 && dos == 0) {
     ex = 10;
@@ -184,32 +193,31 @@ function mov() {
       posx = document.getElementsByClassName("marciano")[i].style.left;
       if (posx + ex <= tampantx) {
         //document.getElementsByClassName("marciano")[i].style.left = (posx = posx + ex) + "px";
-        (posx = posx + ex) + "px";
+        posx = posx + ex + "px";
       }
       posy = document.getElementsByClassName("marciano")[i].style.top;
-        if (posy + ey >= 0) {
-            //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
-            (posy = posy + ey) + "px";
-        }
+      if (posy + ey >= 0) {
+        //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
+        (posy = posy + ey) + "px";
+      }
     }
-        
   }
 
   if (uno == 0 && dos == 1) {
     ex = -10;
     ey = 10;
 
-    for(i = 0; i< cantene; i++){
+    for (i = 0; i < cantene; i++) {
       posx = document.getElementsByClassName("marciano")[i].style.left;
-    if (posx + ex >= 0) {
-      //document.getElementsByClassName("marciano")[i].style.left =
+      if (posx + ex >= 0) {
+        //document.getElementsByClassName("marciano")[i].style.left =
         (posx = posx + ex) + "px";
-    }
-    posy = document.getElementsByClassName("marciano")[i].style.top;
-    if (posy + ey >= tampanty) {
-      //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
-      (posy = posy + ey) + "px";
-    }
+      }
+      posy = document.getElementsByClassName("marciano")[i].style.top;
+      if (posy + ey >= tampanty) {
+        //document.getElementsByClassName("marciano")[i].style.top = (posy = posy + ey) + "px";
+        (posy = posy + ey) + "px";
+      }
     }
   }
 
@@ -217,18 +225,17 @@ function mov() {
     ex = 10;
     ey = 10;
 
-    for(i = 0; i< cantene; i++){
+    for (i = 0; i < cantene; i++) {
       posx = document.getElementsByClassName("marciano")[i].style.left;
-    if (posx + ex <= tampantx) {
-      
-      //document.getElementsByClassName("marciano")[i].style.left =
+      if (posx + ex <= tampantx) {
+        //document.getElementsByClassName("marciano")[i].style.left =
         (posx = posx + ex) + "px";
-    }
-    posy = document.getElementsByClassName("marciano")[i].style.top;
-    if (posy + ey <= tampanty) {
-      //document.getElementsByClassName("marciano")[i].style.top = 
-      (posy = posy + ey) + "px";
-    }
+      }
+      posy = document.getElementsByClassName("marciano")[i].style.top;
+      if (posy + ey <= tampanty) {
+        //document.getElementsByClassName("marciano")[i].style.top =
+        (posy = posy + ey) + "px";
+      }
     }
   }
 }
@@ -283,4 +290,11 @@ function temporizador() {
     numero = numero + 1;
     cont.textContent = numero;
   }
+}
+
+//Micky herramienta
+function obtenerCatacteristica(objeto, caracte) {
+  let texto = getComputedStyle(objeto)[caracte];
+  let dato = texto.substring(0, texto.indexOf("px"));
+  return Number.parseInt(dato);
 }
