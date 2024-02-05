@@ -1,0 +1,12 @@
+#lienzo{
+    border: solid black 2px;
+    height: 80%;
+    margin: 3%;
+}
+
+.pintarIzq{
+    background-color: black;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+}
