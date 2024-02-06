@@ -80,3 +80,6 @@ window.addEventListener("load", function(){
 
 });
 
+/*Si quiero usar los datos del fetch fuera delftch, tengo que crear una variable global,
+la cual va a copiar al array del fetch con el "array".slice()*/
+

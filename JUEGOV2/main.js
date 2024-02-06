@@ -157,13 +157,27 @@ function enemigos() {
 //let posx; = 400;
 //let posy; = 100;
 let uno, dos;
-function movimientoEnemigo() {
-  uno = Math.floor(Math.random() * 2);
-  dos = Math.floor(Math.random() * 2);
+function getDireccion(velocidad) {
+  let v = Number.parseInt(velocidad);
+  let direccion = Math.floor(Math.random() * 2);
+  if(direccion==0){
+    v = (-1 * v);
+  }
+ return v;
 }
-setInterval(movimientoEnemigo, 50);
-setInterval(mov, 20);
-function mov() {
+
+
+function moverEnemigo(enemigo){
+  let vX = getDireccion(enemigo.dataset.vx);
+  let vY =  getDireccion(enemigo.dataset.vy);
+    enemigo.setAttribute("data-vx", vX);
+    enemigo.setAttribute("data-vy", vY);
+  
+}
+
+setInterval(movimientoEnemigo, 600);
+setInterval(mov,500);
+/*function mov() {
   let ex, ey;
   let posx, posy;
 
@@ -176,13 +190,14 @@ function mov() {
       posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
       posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
 
-      if (posx + ex > 0) {
+      if ((posx + ex > 0) && (uno == 0 && dos == 0)) {
         document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
       }
        
-      if (posy + ey > 0) {
+      if ((posy + ey > 0) && (uno == 0 && dos == 0)) {
         document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
       }
+      setTimeout(movimientoEnemigo, );
     }
   }
 
@@ -193,15 +208,17 @@ function mov() {
     for (let i = 0; i < cantene; i++) {
       posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
       posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
-      if (posx + ex <= tampantx) {
+      if ((posx + ex <= tampantx) && (uno == 1 && dos == 0)) {
         
         document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
       }
       
-      if (posy + ey >= 0) {
+      if ((posy + ey >= 0) && (uno == 1 && dos == 0)) {
         
         document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
       }
+      uno = Math.floor(Math.random() * 2);
+      dos = Math.floor(Math.random() * 2);
     }
   }
 
@@ -209,17 +226,19 @@ function mov() {
     ex = -10;
     ey = 10;
 
-    for (i = 0; i < cantene; i++) {
+    for (let i = 0; i < cantene; i++) {
       posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
       posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
       
-      if (posx + ex >= 0) {
+      if ((posx + ex >= 0) && (uno == 0 && dos == 1)) {
         document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
       }
       
-      if (posy + ey >= tampanty) {
+      if ((posy + ey >= tampanty) && (uno == 0 && dos == 1)) {
         document.getElementsByClassName("marciano")[i].style.top = posy - (ey) + "px";
       }
+      uno = Math.floor(Math.random() * 2);
+      dos = Math.floor(Math.random() * 2);
     }
   }
 
@@ -232,16 +251,16 @@ function mov() {
       posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
       posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
 
-      if (posx + ex <= tampantx) {
+      if ((posx + ex <= tampantx) && (uno == 1 && dos == 1)) {
         document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
       }
       posy = document.getElementsByClassName("marciano")[i].style.top;
-      if (posy + ey <= tampanty) {
+      if ((posy + ey <= tampanty) && ()) {
         document.getElementsByClassName("marciano")[i].style.top = posy - (ey) + "px";
       }
     }
   }
-}
+}*/
 
 /////////////////COLISIONES////////////////////////////
 
