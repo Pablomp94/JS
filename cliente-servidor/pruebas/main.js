@@ -13,7 +13,7 @@ window.addEventListener("load", function(){
   .then((json) => {
 
     let boton = document.createElement("button");
-    boton.textContent = "Buscar por Id";
+    boton.textContent = "Marcar Id";
     document.body.append(boton);
 
     boton.addEventListener("click", buscarId);
@@ -68,9 +68,10 @@ window.addEventListener("load", function(){
     }
 
     function buscarId(){
-      let ident = prompt("Introduce el id a buscar");
+      let ident = prompt("Introduce el id a marcar");
       let encontrado = document.getElementById(ident);
-      encontrado.style.backgroundcolor=="orange";
+      encontrado.style.background="orange";
+      
     }
 
   }).catch(error => {
