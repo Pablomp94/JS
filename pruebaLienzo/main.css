@@ -4,9 +4,10 @@
     margin: 3%;
 }
 
-.pintarIzq{
-    background-color: black;
+.pintar{
+    
     width: 10px;
     height: 10px;
     position: absolute;
+    border-radius: 100px;
 }

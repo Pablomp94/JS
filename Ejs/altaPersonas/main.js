@@ -99,8 +99,6 @@ function verPersonas() {
 
 function buscarNombre() {
   var nom = prompt("Introduce el nombre a buscar");
-
-  var numArr;
   var bol;
 
   for (let i = 0; i < arr.length; i++) {

@@ -177,7 +177,8 @@ function moverEnemigo(enemigo){
 
 setInterval(movimientoEnemigo, 600);
 setInterval(mov,500);
-/*function mov() {
+/*
+function mov() {
   let ex, ey;
   let posx, posy;
 
@@ -255,7 +256,7 @@ setInterval(mov,500);
         document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
       }
       posy = document.getElementsByClassName("marciano")[i].style.top;
-      if ((posy + ey <= tampanty) && ()) {
+      if ((posy + ey <= tampanty) && (uno == 1 && dos == 1)) {
         document.getElementsByClassName("marciano")[i].style.top = posy - (ey) + "px";
       }
     }
