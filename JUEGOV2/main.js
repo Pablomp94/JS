@@ -156,7 +156,9 @@ function enemigos() {
 //Si tocan el borde de la pantalla que no se sobrepase
 //let posx; = 400;
 //let posy; = 100;
-let uno, dos;
+
+
+/*//PRUEBA MOVIMIENTO ENEMIGO
 function getDireccion(velocidad) {
   let v = Number.parseInt(velocidad);
   let direccion = Math.floor(Math.random() * 2);
@@ -172,12 +174,19 @@ function moverEnemigo(enemigo){
   let vY =  getDireccion(enemigo.dataset.vy);
     enemigo.setAttribute("data-vx", vX);
     enemigo.setAttribute("data-vy", vY);
-  
 }
 
-setInterval(movimientoEnemigo, 600);
-setInterval(mov,500);
-/*
+setInterval(moverEnemigo, 600);*/
+
+let uno, dos;
+setInterval(movimientoEnemigo, 400);
+setInterval(mov,20);
+
+function movimientoEnemigo(){
+  uno = Math.floor(Math.random() * 2);
+  dos = Math.floor(Math.random() * 2);
+}
+
 function mov() {
   let ex, ey;
   let posx, posy;
@@ -259,9 +268,11 @@ function mov() {
       if ((posy + ey <= tampanty) && (uno == 1 && dos == 1)) {
         document.getElementsByClassName("marciano")[i].style.top = posy - (ey) + "px";
       }
+      uno = Math.floor(Math.random() * 2);
+      dos = Math.floor(Math.random() * 2);
     }
   }
-}*/
+}
 
 /////////////////COLISIONES////////////////////////////
 
