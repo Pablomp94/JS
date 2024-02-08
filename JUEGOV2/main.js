@@ -1,4 +1,5 @@
 let cantene;
+let puntuacion = 0;
 
 function juego() {
   let nombre = prompt("Introduce tu nombre:");
@@ -11,7 +12,8 @@ function juego() {
     el enemigo en las coordenadas indicadas y
     se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
 
-  setInterval(detectarColisiones, 20);
+  
+  
 }
 
 ////////HERRAMIENTAS NECESARIAS////////////
@@ -93,7 +95,7 @@ function disparoMisil() {
       misil.style.left = xdis + "px";
       misil.style.visibility = "visible";
       misil.setAttribute("data-y", ydis);
-      misil.setAttribute("src", "disparo.png");
+      misil.setAttribute("src", "disparo1.png");
 
       algo = setInterval(() => movimientoMisil(misil), 20);
     }
@@ -297,9 +299,8 @@ function mov() {
 }
 
 /////////////////COLISIONES////////////////////////////
-
+setInterval(detectarColisiones, 20);
 /*En este codigo realizo la deteccion de colisiones*/
-
 function detectarColisiones() {
   /*Recojo los datos necesarios, en los que se va a crear el "perimetro" 
     de las colisiones */
@@ -331,8 +332,11 @@ function detectarColisiones() {
       (naveY < (eneY + anchura)) &&
       (naveY + (naveY > eneY))
     ) {
-      laNave.setAttribute("src", "explosion.png");
-      setTimeout(laNave.remove(), 2000);
+      
+      laNave.setAttribute("src", "expl.png");
+      //setTimeout(laNave.style.visibility = "hidden", 2000);
+      setTimeout(alert("Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion, 2000));
+      detectarColisiones.clearInterval();
     }
 
     if (
@@ -343,16 +347,29 @@ function detectarColisiones() {
     ) {
       enemigo[i].setAttribute("src", "explosion.png");
       setTimeout(enemigo[i].remove(), 2000);
+      puntuacion = puntuacion + 100;
   }
 }
 }
 
+
+
+function finJuego(){
+  
+  if(muerte == 1){
+    
+  }
+}
+
+
+
 /////////////////EXTRAS////////////////////////////
 
-/*Realizo en temporizador que es un texto que dentro tiene una variable, la cual se le va sumando 1 por cada segundo, haciendo un
-reloj del tiempo que se esta jugando*/
+/*Realizo un temporizador que es un texto que dentro tiene una variable, la cual se le va sumando 1 por cada segundo, haciendo un
+reloj del tiempo que se esta jugando y tmbn creo para que se muestre la puntuacion*/
+let numero = 0;
 function temporizador() {
-  let numero = 0;
+  
   let cont = document.createElement("h1");
   cont.textContent = numero;
   document.body.append(cont);
@@ -365,6 +382,14 @@ function temporizador() {
     numero = numero + 1;
     cont.textContent = numero;
   }
+
+  let punt = document.createElement("h1");
+  punt.textContent = puntuacion;
+  document.body.append(punt);
+
+  punt.style.right = "2px";
+
+
 }
 
 //Micky herramienta

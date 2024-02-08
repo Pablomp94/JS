@@ -8,6 +8,13 @@ table, tr, th, td{
     font-size: 30px;
 }
 
+h1{
+    color: white;
+    margin-top: 70px;
+    font-size: 40px;
+    text-align: center;
+}
+
 table{
     width: 80%;
     color: white;

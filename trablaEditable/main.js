@@ -6,12 +6,52 @@ window.addEventListener("load", function () {
   let precio = document.getElementsByClassName("precio");
   let cantidad = document.getElementsByClassName("cantidad");
   let total = document.getElementsByClassName("total");
-  let columnaEliminable = document.getElementsByClassName("eliminable");
   let botonCrear = document.getElementById("agregar");
   let botFondo = document.getElementById("fondo");
   let botLetra = document.getElementById("letra");
   let botEliminar = document.getElementById("eliminar");
-  let tablaFija = document.getElementsByClassName("info");
+
+  let infProducto = document.getElementById("producto");
+  let infPrecio = document.getElementById("precio");
+  let infCantidad = document.getElementById("cantidad");
+  let infTotal = document.getElementById("total");
+
+
+  infProducto.addEventListener("click", escribirProducto);
+  infPrecio.addEventListener("click",  escribirPrecio);
+  infCantidad.addEventListener("click", escribirCantidad);
+  infTotal.addEventListener("click", escribirTotal);
+  let escr;
+  function escribir(){
+    try{
+      let texto = document.getElementById("texto");
+      texto.remove();
+    }catch{}
+
+    escr = document.createElement("h1");
+    escr.setAttribute("id", "texto");
+  }
+  function escribirProducto(){
+    escribir();
+    escr.textContent = "Los productos que se van a almacenar.";
+    document.body.appendChild(escr);
+  }
+  function escribirPrecio(){
+    escribir();
+    escr.textContent = "El precio de cada producto.";
+    document.body.appendChild(escr);
+  }
+  function escribirCantidad(){
+    escribir();
+    escr.textContent = "La cantidad de productos.";
+    document.body.appendChild(escr);
+  }
+  function escribirTotal(){
+    escribir();
+    escr.textContent = "El total de lo que vale el conjunto de ese producto.";
+    document.body.appendChild(escr);
+  }
+
 
   
   botLetra.addEventListener("click", cambiarLetra);
@@ -98,6 +138,7 @@ window.addEventListener("load", function () {
     let color = prompt("Selecciona el color en ingles que quieras para cambiar el color de la letra EN INGLES");
 
     tabla.style.color = color.toLowerCase();
+    escr.style.color = color.toLowerCase();
 
   }
 
@@ -112,9 +153,6 @@ window.addEventListener("load", function () {
     }
   }
 
-  function verInfo(){
-
-  }
 
   
 
