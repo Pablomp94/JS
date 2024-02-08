@@ -92,9 +92,10 @@ function disparoMisil() {
       misil.style.top = ydis + "px";
       misil.style.left = xdis + "px";
       misil.style.visibility = "visible";
-      misil.setAttribute("data-y",ydis);
+      misil.setAttribute("data-y", ydis);
+      misil.setAttribute("src", "disparo.png");
 
-      algo = setInterval(()=>movimientoMisil(misil), 20);
+      algo = setInterval(() => movimientoMisil(misil), 20);
     }
 
     /*Esta funcion coje el misil y le resta a la posicion vertical, lo que hace que suba un poco*/
@@ -103,8 +104,8 @@ function disparoMisil() {
       let posicionY = Number.parseInt(miMisil.dataset.y);
       posicionY -= 15;
       misil.style.top = posicionY + "px";
-      
-      miMisil.setAttribute("data-y",posicionY)
+
+      miMisil.setAttribute("data-y", posicionY);
 
       if (obtenerCatacteristica(misil, "top") < 0) {
         misil.style.visibility = "hidden";
@@ -157,7 +158,6 @@ function enemigos() {
 //let posx; = 400;
 //let posy; = 100;
 
-
 /*//PRUEBA MOVIMIENTO ENEMIGO
 function getDireccion(velocidad) {
   let v = Number.parseInt(velocidad);
@@ -179,10 +179,10 @@ function moverEnemigo(enemigo){
 setInterval(moverEnemigo, 600);*/
 
 let uno, dos;
-setInterval(movimientoEnemigo, 400);
-setInterval(mov,20);
+setInterval(movimientoEnemigo, 120);
+setInterval(mov, 20);
 
-function movimientoEnemigo(){
+function movimientoEnemigo() {
   uno = Math.floor(Math.random() * 2);
   dos = Math.floor(Math.random() * 2);
 }
@@ -192,83 +192,107 @@ function mov() {
   let posx, posy;
 
   if (uno == 0 && dos == 0) {
-    ex = -10;
-    ey = -10;
+    ex = -5;
+    ey = -5;
 
     for (let i = 0; i < cantene; i++) {
       //posx = document.getElementsByClassName("marciano")[i].style.left;
-      posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
-      posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
+      posx = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "left"
+      );
+      posy = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "top"
+      );
 
-      if ((posx + ex > 0)) {
-        document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
+      if (posx + ex > 0) {
+        document.getElementsByClassName("marciano")[i].style.left =
+          posx + ex + "px";
       }
-       
-      if ((posy + ey > 0)) {
-        document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
+
+      if (posy + ey > 0) {
+        document.getElementsByClassName("marciano")[i].style.top =
+          posy + ey + "px";
       }
-      
     }
   }
 
   if (uno == 1 && dos == 0) {
-    ex = 10;
-    ey = -10;
+    ex = 5;
+    ey = -5;
 
     for (let i = 0; i < cantene; i++) {
-      posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
-      posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
-      if ((posx + ex <= tampantx)) {
-        
-        document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
+      posx = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "left"
+      );
+      posy = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "top"
+      );
+      if (posx + ex <= tampantx) {
+        document.getElementsByClassName("marciano")[i].style.left =
+          posx + ex + "px";
       }
-      
-      if ((posy + ey >= 0)) {
-        
-        document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
+
+      if (posy + ey >= 0) {
+        document.getElementsByClassName("marciano")[i].style.top =
+          posy + ey + "px";
       }
     }
   }
 
   if (uno == 0 && dos == 1) {
-    ex = -10;
-    ey = 10;
+    ex = -5;
+    ey = 5;
 
     for (let i = 0; i < cantene; i++) {
-      posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
-      posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
-      
-      if ((posx + ex >= 0)) {
-        document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
+      posx = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "left"
+      );
+      posy = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "top"
+      );
+
+      if (posx + ex >= 0) {
+        document.getElementsByClassName("marciano")[i].style.left =
+          posx + ex + "px";
       }
-      
-      if ((posy + ey >= tampanty)) {
-        document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
+
+      if (posy + ey <= tampanty) {
+        document.getElementsByClassName("marciano")[i].style.top =
+          posy + ey + "px";
       }
-      
     }
   }
 
   if (uno == 1 && dos == 1) {
-    ex = 10;
-    ey = 10;
+    ex = 5;
+    ey = 5;
 
     for (i = 0; i < cantene; i++) {
-      
-      posx = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "left");
-      posy = obtenerCatacteristica(document.getElementsByClassName("marciano")[i], "top");
+      posx = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "left"
+      );
+      posy = obtenerCatacteristica(
+        document.getElementsByClassName("marciano")[i],
+        "top"
+      );
 
-      if ((posx + ex <= tampantx)) {
-        document.getElementsByClassName("marciano")[i].style.left = posx + ex + "px";
+      if (posx + ex <= tampantx) {
+        document.getElementsByClassName("marciano")[i].style.left =
+          posx + ex + "px";
       }
-      
-      if ((posy + ey < tampanty)) {
-        document.getElementsByClassName("marciano")[i].style.top = posy + ey + "px";
+
+      if (posy + ey <= tampanty) {
+        document.getElementsByClassName("marciano")[i].style.top =
+          posy + ey + "px";
       }
-      
     }
-    console.log(posx);
-    console.log(posy);
   }
 }
 
@@ -280,28 +304,47 @@ function detectarColisiones() {
   /*Recojo los datos necesarios, en los que se va a crear el "perimetro" 
     de las colisiones */
 
-  let laNave = document.getElementById("nave").style;
+  let laNave = document.getElementById("nave");
+  let disparo = document.getElementById("disparo");
 
-  let naveX = parseInt(laNave.left) - 5;
-  let naveY = parseInt(laNave.top) - 5;
+  let naveX = obtenerCatacteristica(laNave, "left");
+  let naveY = obtenerCatacteristica(laNave, "top");
+  let anchura = obtenerCatacteristica(laNave, "width");
+  let disparoAnchura = obtenerCatacteristica(disparo, "width");
+  let disparoX = obtenerCatacteristica(disparo, "left");
+  let disparoY = obtenerCatacteristica(disparo, "top");
 
-  let enemigo = document.getElementById("marciano").style;
 
-  let eneX = parseInt(enemigo.left);
-  let eneY = parseInt(enemigo.top);
+  let enemigo = document.getElementsByClassName("marciano");
 
-  /*Recojo dichos datos y hago las comprobaciones necesarias
+  for (let i = 0; i < enemigo.length; i++) {
+    let eneX = obtenerCatacteristica(enemigo[i],"left");
+    let eneY = obtenerCatacteristica(enemigo[i],"top");
+  
+
+    /*Recojo dichos datos y hago las comprobaciones necesarias
     para saber si se está colisionando o no.*/
 
-  if (
-    naveX < eneX + enemigo.width &&
-    laNave.left + laNave.width > eneX &&
-    naveY < eneY + enemigo.height &&
-    laNave.height + laNave.top > eneY
-  ) {
-    console.log("Colision");
-  } else {
+    if (
+      (naveX < (eneX + anchura)) &&
+      ((naveX + anchura) > eneX) &&
+      (naveY < (eneY + anchura)) &&
+      (naveY + (naveY > eneY))
+    ) {
+      laNave.setAttribute("src", "explosion.png");
+      setTimeout(laNave.remove(), 2000);
+    }
+
+    if (
+      (disparoX < (eneX + anchura)) &&
+      ((disparoY + disparoAnchura) > eneX) &&
+      (disparoY < (eneY + anchura)) &&
+      (disparoY + (disparoY > eneY))
+    ) {
+      enemigo[i].setAttribute("src", "explosion.png");
+      setTimeout(enemigo[i].remove(), 2000);
   }
+}
 }
 
 /////////////////EXTRAS////////////////////////////
@@ -330,3 +373,4 @@ function obtenerCatacteristica(objeto, caracte) {
   let dato = texto.substring(0, texto.indexOf("px"));
   return Number.parseInt(dato);
 }
+
