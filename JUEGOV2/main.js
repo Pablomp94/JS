@@ -1,20 +1,19 @@
 let cantene;
 let puntuacion = 0;
-
+let nombre;
 function juego() {
-  let nombre = prompt("Introduce tu nombre:");
+  nombre = prompt("Introduce tu nombre:");
   let canten = prompt("Introduce la cantidad de enemigos");
   cantene = parseInt(canten);
   temporizador();
   enemigos(cantene);
   nave();
-  /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
-    el enemigo en las coordenadas indicadas y
-    se realize cada 20ms, haciendo que cada ese tiempo se mueva*/
+ 
 
   
-  
 }
+
+
 
 ////////HERRAMIENTAS NECESARIAS////////////
 
@@ -114,24 +113,7 @@ function disparoMisil() {
         clearInterval(algo);
       }
     }
-    /*Realizo un setInterval que lo que hace es que el metodo anterior que hace que suba un poco el misil
-                  se realize cada 20ms, haciendo que cada ese tiempo se suba hasta llegar arriba*/
-    /**do {
-      setInterval(movimientoMisil, 100);
-    } while (document.getElementById("disparo").style.top <= 0);**/
   }
-
-  /**let canShoot = true
-      
-      const handleShoot = (cooldown: number) => {
-        if (!canShoot) return
-        else {
-          canShoot = false
-          setTimeout(() => { canShoot = true }, cooldown)
-        }
-      
-        // ... Resto de la función
-      } */
 }
 
 /////////////////ENEMIGO////////////////////////////
@@ -154,33 +136,15 @@ function enemigos() {
 }
 
 //Esta es la funcion que hace que se muevan de forma aleatoria los enemigos.
-//(provisional)Los enemigos aparecen de fuera de la pantalla en un punto y se van moviendo aleatoriamente hacia dentro de la pantalla.
-//(otra opcion)Aparecen arriba, dentro de la pantalla, y se mueven aleatoriamente
-//Si tocan el borde de la pantalla que no se sobrepase
-//let posx; = 400;
-//let posy; = 100;
-
-/*//PRUEBA MOVIMIENTO ENEMIGO
-function getDireccion(velocidad) {
-  let v = Number.parseInt(velocidad);
-  let direccion = Math.floor(Math.random() * 2);
-  if(direccion==0){
-    v = (-1 * v);
-  }
- return v;
-}
-
-
-function moverEnemigo(enemigo){
-  let vX = getDireccion(enemigo.dataset.vx);
-  let vY =  getDireccion(enemigo.dataset.vy);
-    enemigo.setAttribute("data-vx", vX);
-    enemigo.setAttribute("data-vy", vY);
-}
-
-setInterval(moverEnemigo, 600);*/
 
 let uno, dos;
+
+ /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
+    el enemigo y
+    se realize cada 20ms, al igual que el metodo que cambia la direccion en la que 
+    se va a mover el enemigo, haciendo que cada ese tiempo se mueva de forma distinta*/
+
+
 setInterval(movimientoEnemigo, 120);
 setInterval(mov, 20);
 
@@ -197,20 +161,14 @@ function mov() {
     ex = -5;
     ey = -5;
 
-    for (let i = 0; i < cantene; i++) {
-      //posx = document.getElementsByClassName("marciano")[i].style.left;
-      posx = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "left"
-      );
-      posy = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "top"
-      );
+    for (let ene  of document.getElementsByClassName("marciano")) {
+      posx = obtenerCatacteristica(ene, "left");
+       
+     
+      posy = obtenerCatacteristica(ene,"top");
 
       if (posx + ex > 0) {
-        document.getElementsByClassName("marciano")[i].style.left =
-          posx + ex + "px";
+        ene.style.left = posx + ex + "px";
       }
 
       if (posy + ey > 0) {
@@ -327,23 +285,42 @@ function detectarColisiones() {
     para saber si se está colisionando o no.*/
 
     if (
-      (naveX < (eneX + anchura)) &&
-      ((naveX + anchura) > eneX) &&
-      (naveY < (eneY + anchura)) &&
-      (naveY + (naveY > eneY))
+      ((naveX + anchura/2) < (eneX + anchura)) &&
+      ((naveX + anchura/2) > (eneX) &&
+      ((naveY + anchura/2) < (eneY + anchura)) &&
+      ((naveY + anchura/2) > eneY))
     ) {
+
+
+      //Almaceno los datos en un localStorage//
+      nombre
+  laNave.setAttribute("src", "expl.png");
+  setTimeout( muerteyDestruccion,2000);
+ 
+  function muerteyDestruccion(){
+    alert("Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion);
+  }
+
+  setInterval(ganar, 1000);
+
+  //Compruebo si has ganado//
+  function ganar(){
+    if(enemigo.length == 0){
+      alert("Has ganado, enhorabuena:Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion);
+    }
+  }
+
       
-      laNave.setAttribute("src", "expl.png");
+      
       //setTimeout(laNave.style.visibility = "hidden", 2000);
-      setTimeout(alert("Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion, 2000));
       detectarColisiones.clearInterval();
     }
 
     if (
-      (disparoX < (eneX + anchura)) &&
-      ((disparoY + disparoAnchura) > eneX) &&
-      (disparoY < (eneY + anchura)) &&
-      (disparoY + (disparoY > eneY))
+      ((disparoX + disparoAnchura/2) < (eneX + anchura)) &&
+      ((disparoX + disparoAnchura/2) > (eneX) &&
+      ((disparoY + disparoAnchura/2) < (eneY + anchura)) &&
+      ((disparoY + disparoAnchura/2) > eneY))
     ) {
       enemigo[i].setAttribute("src", "explosion.png");
       setTimeout(enemigo[i].remove(), 2000);
@@ -351,16 +328,6 @@ function detectarColisiones() {
   }
 }
 }
-
-
-
-function finJuego(){
-  
-  if(muerte == 1){
-    
-  }
-}
-
 
 
 /////////////////EXTRAS////////////////////////////
@@ -377,17 +344,19 @@ function temporizador() {
   //Subir el contador con un interval para que sume 1 por cada segundo, para saber cuanto tiempo has sobrevivido//
 
   setInterval(suma, 1000);
-
+  let punt = document.createElement("h1");
   function suma() {
     numero = numero + 1;
     cont.textContent = numero;
+  
+    punt.textContent = puntuacion;
+    document.body.append(punt);
+
+    punt.style.right = "2px";
+    
   }
 
-  let punt = document.createElement("h1");
-  punt.textContent = puntuacion;
-  document.body.append(punt);
-
-  punt.style.right = "2px";
+  
 
 
 }

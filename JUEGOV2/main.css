@@ -11,7 +11,7 @@ body{
 
 #nave{
     width:150px;
-    height:160px;
+    height:150px;
     top: 500px;
     left: 650px;
     position: absolute;
@@ -20,7 +20,7 @@ body{
 
 .marciano{
     width:150px;
-    height:160px;
+    height:150px;
     position: absolute;
     top: 400px;
     left: 150px;
@@ -28,7 +28,7 @@ body{
 
 #disparo{
     width:50px;
-    height:60px;
+    height:50px;
     position: absolute;
 }
 
