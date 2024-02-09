@@ -57,7 +57,7 @@ window.addEventListener("load", function () {
   botLetra.addEventListener("click", cambiarLetra);
   botFondo.addEventListener("click", cambiarFondo);
   botonCrear.addEventListener("click", añadirColumna);
-  botEliminar.addEventListener("click", eliminarColumna);
+  botEliminar.addEventListener("click", eliminarFila);
 
 
   setInterval(editar, 1000);
@@ -142,14 +142,14 @@ window.addEventListener("load", function () {
 
   }
 
-  function eliminarColumna(){
+  function eliminarFila(){
 
     let numeroHijos = tabla.childElementCount;
 
     if(numeroHijos > 1){
       tabla.removeChild(tabla.lastChild);
     }else{
-      alert("No puedes eliminar mas columnas. Edita si es necesario las que tienes");
+      alert("No puedes eliminar mas filas. Edita si es necesario las que tienes");
     }
   }
 

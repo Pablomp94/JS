@@ -1,3 +1,8 @@
+let musica = new Audio("sweden.mp3");
+musica.play();
+musica.loop = true;
+
+
 let cantene;
 let puntuacion = 0;
 let nombre;
@@ -8,12 +13,37 @@ function juego() {
   temporizador();
   enemigos(cantene);
   nave();
- 
 
-  
+  //GANAR//
+
+  setInterval(ganar, 1000);
+
+  let compr = 0;
+  let nombres;
+  //Compruebo si has ganado//
+  function ganar() {
+    enemigo = document.getElementsByClassName("marciano");
+    if (enemigo.length == 0 && compr == 0) {
+      alert(
+        "Has ganado, enhorabuena. " +
+          nombre +
+          " Has sobrevivido: " +
+          numero +
+          " segundos. Con " +
+          cantene +
+          " enemigos y una puntuacion total de:" +
+          puntuacion
+      );
+      compr = 1;
+      /*//Subo la puntuación a un local storage//
+      for(let n = 0; n < localStorage.length; n ++){
+        localStorage.setItem("nom"+n, nombre);
+        localStorage.setItem("punt"+n, puntuacion);
+      }*/
+      
+    }
+  }
 }
-
-
 
 ////////HERRAMIENTAS NECESARIAS////////////
 
@@ -27,7 +57,7 @@ let tampanty = screen.height - 320;
 //Creo en tiempo de ejecucion la nave//
 function nave() {
   var imagen = document.createElement("img");
-  imagen.setAttribute("src", "nave.png");
+  imagen.setAttribute("src", "cabesa.webp");
   imagen.setAttribute("id", "nave");
   document.body.appendChild(imagen);
 }
@@ -66,7 +96,39 @@ function movimientoNave() {
     y = y + 15;
     document.getElementById("nave").style.top = y + "px";
   }
+
 }
+
+document.addEventListener("click", pausa);
+
+function pausa(){
+  /*
+  let tabla = document.createElement("table");
+
+  let columna = document.createElement("tr");
+
+  
+
+  for(let a = 0; a < localStorage.length; a ++){
+    tabla.appendChild(columna);
+    let filaNom = document.createElement("th");
+    let filaPunt = document.createElement("th");
+
+    filaNom.textContent = localStorage.getItem("nom"+a);
+    filaPunt.textContent = localStorage.getItem("punt"+a);
+    columna.appendChild(filaNom);
+    columna.appendChild(filaPunt);
+  }
+
+  let fondo = document.querySelector("body");
+
+  fondo.style.backgroundImage = "none";
+
+  document.body.appendChild(tabla);*/
+
+  alert("pausa");
+}
+
 
 let n = 0;
 setInterval(disparoMisil, 20);
@@ -84,7 +146,7 @@ function disparoMisil() {
   if (teclas.has(" ")) {
     let algo;
     let misil = document.getElementById("disparo");
-    xdis = x + 50;
+    xdis = x + 25;
     ydis = y - 20;
 
     // ... Resto de la función
@@ -94,7 +156,7 @@ function disparoMisil() {
       misil.style.left = xdis + "px";
       misil.style.visibility = "visible";
       misil.setAttribute("data-y", ydis);
-      misil.setAttribute("src", "disparo1.png");
+      misil.setAttribute("src", "disparov2.webp");
 
       algo = setInterval(() => movimientoMisil(misil), 20);
     }
@@ -122,7 +184,7 @@ function disparoMisil() {
 function enemigos() {
   for (i = 0; i < cantene; i++) {
     var imagen = document.createElement("img");
-    imagen.setAttribute("src", "marciano.png");
+    imagen.setAttribute("src", "ghast.png");
     imagen.setAttribute("id", "marciano");
     imagen.setAttribute("class", "marciano");
     document.body.appendChild(imagen);
@@ -139,11 +201,10 @@ function enemigos() {
 
 let uno, dos;
 
- /*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
+/*Realizo un setInterval que lo que hace es que el metodo que hace que se mueva 
     el enemigo y
     se realize cada 20ms, al igual que el metodo que cambia la direccion en la que 
     se va a mover el enemigo, haciendo que cada ese tiempo se mueva de forma distinta*/
-
 
 setInterval(movimientoEnemigo, 120);
 setInterval(mov, 20);
@@ -154,26 +215,24 @@ function movimientoEnemigo() {
 }
 
 function mov() {
-  let ex, ey;
+  let ex, ey, ene;
   let posx, posy;
 
   if (uno == 0 && dos == 0) {
     ex = -5;
     ey = -5;
 
-    for (let ene  of document.getElementsByClassName("marciano")) {
+    for (ene of document.getElementsByClassName("marciano")) {
       posx = obtenerCatacteristica(ene, "left");
-       
-     
-      posy = obtenerCatacteristica(ene,"top");
+
+      posy = obtenerCatacteristica(ene, "top");
 
       if (posx + ex > 0) {
         ene.style.left = posx + ex + "px";
       }
 
       if (posy + ey > 0) {
-        document.getElementsByClassName("marciano")[i].style.top =
-          posy + ey + "px";
+        ene.style.top = posy + ey + "px";
       }
     }
   }
@@ -182,23 +241,15 @@ function mov() {
     ex = 5;
     ey = -5;
 
-    for (let i = 0; i < cantene; i++) {
-      posx = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "left"
-      );
-      posy = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "top"
-      );
+    for (ene of document.getElementsByClassName("marciano")) {
+      posx = obtenerCatacteristica(ene, "left");
+      posy = obtenerCatacteristica(ene, "top");
       if (posx + ex <= tampantx) {
-        document.getElementsByClassName("marciano")[i].style.left =
-          posx + ex + "px";
+        ene.style.left = posx + ex + "px";
       }
 
       if (posy + ey >= 0) {
-        document.getElementsByClassName("marciano")[i].style.top =
-          posy + ey + "px";
+        ene.style.top = posy + ey + "px";
       }
     }
   }
@@ -207,24 +258,16 @@ function mov() {
     ex = -5;
     ey = 5;
 
-    for (let i = 0; i < cantene; i++) {
-      posx = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "left"
-      );
-      posy = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "top"
-      );
+    for (ene of document.getElementsByClassName("marciano")) {
+      posx = obtenerCatacteristica(ene, "left");
+      posy = obtenerCatacteristica(ene, "top");
 
       if (posx + ex >= 0) {
-        document.getElementsByClassName("marciano")[i].style.left =
-          posx + ex + "px";
+        ene.style.left = posx + ex + "px";
       }
 
       if (posy + ey <= tampanty) {
-        document.getElementsByClassName("marciano")[i].style.top =
-          posy + ey + "px";
+        ene.style.top = posy + ey + "px";
       }
     }
   }
@@ -233,24 +276,16 @@ function mov() {
     ex = 5;
     ey = 5;
 
-    for (i = 0; i < cantene; i++) {
-      posx = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "left"
-      );
-      posy = obtenerCatacteristica(
-        document.getElementsByClassName("marciano")[i],
-        "top"
-      );
+    for (ene of document.getElementsByClassName("marciano")) {
+      posx = obtenerCatacteristica(ene, "left");
+      posy = obtenerCatacteristica(ene, "top");
 
       if (posx + ex <= tampantx) {
-        document.getElementsByClassName("marciano")[i].style.left =
-          posx + ex + "px";
+        ene.style.left = posx + ex + "px";
       }
 
       if (posy + ey <= tampanty) {
-        document.getElementsByClassName("marciano")[i].style.top =
-          posy + ey + "px";
+        ene.style.top = posy + ey + "px";
       }
     }
   }
@@ -273,62 +308,57 @@ function detectarColisiones() {
   let disparoX = obtenerCatacteristica(disparo, "left");
   let disparoY = obtenerCatacteristica(disparo, "top");
 
-
   let enemigo = document.getElementsByClassName("marciano");
 
   for (let i = 0; i < enemigo.length; i++) {
-    let eneX = obtenerCatacteristica(enemigo[i],"left");
-    let eneY = obtenerCatacteristica(enemigo[i],"top");
-  
+    let eneX = obtenerCatacteristica(enemigo[i], "left");
+    let eneY = obtenerCatacteristica(enemigo[i], "top");
 
     /*Recojo dichos datos y hago las comprobaciones necesarias
     para saber si se está colisionando o no.*/
 
     if (
-      ((naveX + anchura/2) < (eneX + anchura)) &&
-      ((naveX + anchura/2) > (eneX) &&
-      ((naveY + anchura/2) < (eneY + anchura)) &&
-      ((naveY + anchura/2) > eneY))
+      naveX + anchura / 2 < eneX + anchura &&
+      naveX + anchura / 2 > eneX &&
+      naveY + anchura / 2 < eneY + anchura &&
+      naveY + anchura / 2 > eneY
     ) {
+      laNave.setAttribute("src", "expl.png");
 
+      setTimeout(muerteyDestruccion, 2000);
 
-      //Almaceno los datos en un localStorage//
-      nombre
-  laNave.setAttribute("src", "expl.png");
-  setTimeout( muerteyDestruccion,2000);
- 
-  function muerteyDestruccion(){
-    alert("Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion);
-  }
+      function muerteyDestruccion() {
+        alert(
+          "Has sobrevivido: " +
+            numero +
+            " segundos. Con " +
+            cantene +
+            " enemigos y una puntuacion total de:" +
+            puntuacion
+        );
+      }
 
-  setInterval(ganar, 1000);
-
-  //Compruebo si has ganado//
-  function ganar(){
-    if(enemigo.length == 0){
-      alert("Has ganado, enhorabuena:Has sobrevivido: " + numero + " segundos. Con "+ cantene + " enemigos y una puntuacion total de:" + puntuacion);
-    }
-  }
-
-      
-      
       //setTimeout(laNave.style.visibility = "hidden", 2000);
       detectarColisiones.clearInterval();
     }
 
     if (
-      ((disparoX + disparoAnchura/2) < (eneX + anchura)) &&
-      ((disparoX + disparoAnchura/2) > (eneX) &&
-      ((disparoY + disparoAnchura/2) < (eneY + anchura)) &&
-      ((disparoY + disparoAnchura/2) > eneY))
+      disparoX + disparoAnchura / 2 < eneX + anchura &&
+      disparoX + disparoAnchura / 2 > eneX &&
+      disparoY + disparoAnchura / 2 < eneY + anchura &&
+      disparoY + disparoAnchura / 2 > eneY
     ) {
-      enemigo[i].setAttribute("src", "explosion.png");
-      setTimeout(enemigo[i].remove(), 2000);
-      puntuacion = puntuacion + 100;
-  }
-}
-}
+      enemigo[i].setAttribute("src", "expl.png");
+      setTimeout(muerte, 1000);
 
+      function muerte(){
+        enemigo[i].remove();
+        puntuacion = puntuacion + 100;
+      }
+    }
+  }
+  
+}
 
 /////////////////EXTRAS////////////////////////////
 
@@ -336,7 +366,6 @@ function detectarColisiones() {
 reloj del tiempo que se esta jugando y tmbn creo para que se muestre la puntuacion*/
 let numero = 0;
 function temporizador() {
-  
   let cont = document.createElement("h1");
   cont.textContent = numero;
   document.body.append(cont);
@@ -348,17 +377,12 @@ function temporizador() {
   function suma() {
     numero = numero + 1;
     cont.textContent = numero;
-  
+
     punt.textContent = puntuacion;
     document.body.append(punt);
 
     punt.style.right = "2px";
-    
   }
-
-  
-
-
 }
 
 //Micky herramienta
@@ -367,4 +391,3 @@ function obtenerCatacteristica(objeto, caracte) {
   let dato = texto.substring(0, texto.indexOf("px"));
   return Number.parseInt(dato);
 }
-

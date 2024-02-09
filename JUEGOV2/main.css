@@ -1,7 +1,13 @@
 body{
-    background-image: url(fondo.png);
-    height: 100% ;
+    background-image: url(nether.webp);
+    height: 100%;
     width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table{
+
 }
 
 #lienzo{
@@ -10,8 +16,8 @@ body{
 }
 
 #nave{
-    width:150px;
-    height:150px;
+    width:100px;
+    height:100px;
     top: 500px;
     left: 650px;
     position: absolute;
@@ -19,8 +25,8 @@ body{
 
 
 .marciano{
-    width:150px;
-    height:150px;
+    width:100px;
+    height:100px;
     position: absolute;
     top: 400px;
     left: 150px;
